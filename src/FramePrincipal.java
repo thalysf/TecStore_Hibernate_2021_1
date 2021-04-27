@@ -31,7 +31,7 @@ public class FramePrincipal extends javax.swing.JFrame {
         menuItemCadastrarAdm = new javax.swing.JMenuItem();
         menuItemCadastrarProduto = new javax.swing.JMenuItem();
         menuItemCadastrarCategoriaProduto = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        menuItemVisualizarProdutos = new javax.swing.JMenuItem();
         menuItemVisualizarCategoriaProduto = new javax.swing.JMenuItem();
         menuItemVisualizarPedido = new javax.swing.JMenuItem();
         menuCliente = new javax.swing.JMenu();
@@ -62,15 +62,35 @@ public class FramePrincipal extends javax.swing.JFrame {
         menuAdm.add(menuItemCadastrarProduto);
 
         menuItemCadastrarCategoriaProduto.setText("Cadastrar Categoria de Produto");
+        menuItemCadastrarCategoriaProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemCadastrarCategoriaProdutoActionPerformed(evt);
+            }
+        });
         menuAdm.add(menuItemCadastrarCategoriaProduto);
 
-        jMenuItem2.setText("Visualizar Produtos");
-        menuAdm.add(jMenuItem2);
+        menuItemVisualizarProdutos.setText("Visualizar Produtos");
+        menuItemVisualizarProdutos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemVisualizarProdutosActionPerformed(evt);
+            }
+        });
+        menuAdm.add(menuItemVisualizarProdutos);
 
         menuItemVisualizarCategoriaProduto.setText("Visualizar Categoria de Produto");
+        menuItemVisualizarCategoriaProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemVisualizarCategoriaProdutoActionPerformed(evt);
+            }
+        });
         menuAdm.add(menuItemVisualizarCategoriaProduto);
 
         menuItemVisualizarPedido.setText("Visualizar Pedidos");
+        menuItemVisualizarPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemVisualizarPedidoActionPerformed(evt);
+            }
+        });
         menuAdm.add(menuItemVisualizarPedido);
 
         jMenuBar1.add(menuAdm);
@@ -78,9 +98,19 @@ public class FramePrincipal extends javax.swing.JFrame {
         menuCliente.setText("Cliente");
 
         menuItemCadastrarCliente.setText("Cadastrar Clientes");
+        menuItemCadastrarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemCadastrarClienteActionPerformed(evt);
+            }
+        });
         menuCliente.add(menuItemCadastrarCliente);
 
         menuItemRealizarPedidos.setText("Realizar Pedidos");
+        menuItemRealizarPedidos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemRealizarPedidosActionPerformed(evt);
+            }
+        });
         menuCliente.add(menuItemRealizarPedidos);
 
         jMenuBar1.add(menuCliente);
@@ -88,6 +118,11 @@ public class FramePrincipal extends javax.swing.JFrame {
         jMenu1.setText("Relatórios");
 
         menuItemGerarRelatorio.setText("Gerar Relatório");
+        menuItemGerarRelatorio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemGerarRelatorioActionPerformed(evt);
+            }
+        });
         jMenu1.add(menuItemGerarRelatorio);
 
         jMenuBar1.add(jMenu1);
@@ -109,12 +144,49 @@ public class FramePrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void menuItemCadastrarAdmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemCadastrarAdmActionPerformed
-        // TODO add your handling code here:
+        DialogCadastrarAdm dlgCadastrarAdm = new DialogCadastrarAdm(this, rootPaneCheckingEnabled);
+        dlgCadastrarAdm.setVisible(rootPaneCheckingEnabled);
     }//GEN-LAST:event_menuItemCadastrarAdmActionPerformed
 
     private void menuItemCadastrarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemCadastrarProdutoActionPerformed
-        // TODO add your handling code here:
+        DialogCadastrarProduto dlgCadastrarProduto = new DialogCadastrarProduto(this, rootPaneCheckingEnabled);
+        dlgCadastrarProduto.setVisible(rootPaneCheckingEnabled);
     }//GEN-LAST:event_menuItemCadastrarProdutoActionPerformed
+
+    private void menuItemCadastrarCategoriaProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemCadastrarCategoriaProdutoActionPerformed
+        DialogCadastrarCategoria dlgCadastrarCategoria = new DialogCadastrarCategoria(this, rootPaneCheckingEnabled);
+        dlgCadastrarCategoria.setVisible(rootPaneCheckingEnabled);
+    }//GEN-LAST:event_menuItemCadastrarCategoriaProdutoActionPerformed
+
+    private void menuItemVisualizarProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemVisualizarProdutosActionPerformed
+        DialogVisualizarProdutos dlgVisualizarProdutos = new DialogVisualizarProdutos(this, rootPaneCheckingEnabled);
+        dlgVisualizarProdutos.setVisible(rootPaneCheckingEnabled);
+    }//GEN-LAST:event_menuItemVisualizarProdutosActionPerformed
+
+    private void menuItemVisualizarCategoriaProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemVisualizarCategoriaProdutoActionPerformed
+        DialogVisualizarCategorias dlgVisualizarCategorias = new DialogVisualizarCategorias(this, rootPaneCheckingEnabled);
+        dlgVisualizarCategorias.setVisible(rootPaneCheckingEnabled);
+    }//GEN-LAST:event_menuItemVisualizarCategoriaProdutoActionPerformed
+
+    private void menuItemVisualizarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemVisualizarPedidoActionPerformed
+        DialogVisualizarPedidos dlgVisualizarPedidos = new DialogVisualizarPedidos(this, rootPaneCheckingEnabled);
+        dlgVisualizarPedidos.setVisible(rootPaneCheckingEnabled);
+    }//GEN-LAST:event_menuItemVisualizarPedidoActionPerformed
+
+    private void menuItemCadastrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemCadastrarClienteActionPerformed
+        DialogCadastrarCliente dlgCadastrarCliente = new DialogCadastrarCliente(this, rootPaneCheckingEnabled);
+        dlgCadastrarCliente.setVisible(rootPaneCheckingEnabled);
+    }//GEN-LAST:event_menuItemCadastrarClienteActionPerformed
+
+    private void menuItemRealizarPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemRealizarPedidosActionPerformed
+        DialogRealizarPedido dlgRealizarPedido = new DialogRealizarPedido(this, rootPaneCheckingEnabled);
+        dlgRealizarPedido.setVisible(rootPaneCheckingEnabled);
+    }//GEN-LAST:event_menuItemRealizarPedidosActionPerformed
+
+    private void menuItemGerarRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemGerarRelatorioActionPerformed
+        DialogGerarRelatorio dlgGerarRelatorio = new DialogGerarRelatorio(this, rootPaneCheckingEnabled);
+        dlgGerarRelatorio.setVisible(rootPaneCheckingEnabled);
+    }//GEN-LAST:event_menuItemGerarRelatorioActionPerformed
 
     /**
      * @param args the command line arguments
@@ -152,7 +224,6 @@ public class FramePrincipal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenu menuAdm;
     private javax.swing.JMenu menuCliente;
     private javax.swing.JMenuItem menuItemCadastrarAdm;
@@ -163,5 +234,6 @@ public class FramePrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuItemRealizarPedidos;
     private javax.swing.JMenuItem menuItemVisualizarCategoriaProduto;
     private javax.swing.JMenuItem menuItemVisualizarPedido;
+    private javax.swing.JMenuItem menuItemVisualizarProdutos;
     // End of variables declaration//GEN-END:variables
 }

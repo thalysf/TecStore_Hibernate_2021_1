@@ -29,21 +29,33 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Cadastrar Categoria de Produto"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItemCadastrarCategoriaProdutoActionPerformed"/>
+              </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem2">
+            <MenuItem class="javax.swing.JMenuItem" name="menuItemVisualizarProdutos">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Visualizar Produtos"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItemVisualizarProdutosActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuItemVisualizarCategoriaProduto">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Visualizar Categoria de Produto"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItemVisualizarCategoriaProdutoActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuItemVisualizarPedido">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Visualizar Pedidos"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItemVisualizarPedidoActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -56,11 +68,17 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Cadastrar Clientes"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItemCadastrarClienteActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuItemRealizarPedidos">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Realizar Pedidos"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItemRealizarPedidosActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -73,6 +91,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Gerar Relat&#xf3;rio"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItemGerarRelatorioActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
