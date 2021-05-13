@@ -1,20 +1,26 @@
+package intergraf;
+
+import gertarefas.GerenciadorInterfaceGrafica;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author thaly
  */
 public class DialogCadastrarCategoria extends javax.swing.JDialog {
 
+    private GerenciadorInterfaceGrafica gerInterfaceGrafica;
+
     /**
      * Creates new form DialogCadastrarProduto
      */
-    public DialogCadastrarCategoria(java.awt.Frame parent, boolean modal) {
+    public DialogCadastrarCategoria(java.awt.Frame parent, boolean modal, GerenciadorInterfaceGrafica gerInterfaceGrafica) {
         super(parent, modal);
+        this.gerInterfaceGrafica = gerInterfaceGrafica;
         initComponents();
     }
 
@@ -31,7 +37,7 @@ public class DialogCadastrarCategoria extends javax.swing.JDialog {
         lblNome = new javax.swing.JLabel();
         txtNome = new javax.swing.JTextField();
         btnVoltar = new javax.swing.JButton();
-        btnSalvar = new javax.swing.JButton();
+        btnSalvarCategoria = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -44,9 +50,19 @@ public class DialogCadastrarCategoria extends javax.swing.JDialog {
 
         btnVoltar.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         btnVoltar.setText("Voltar");
+        btnVoltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVoltarActionPerformed(evt);
+            }
+        });
 
-        btnSalvar.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        btnSalvar.setText("Salvar");
+        btnSalvarCategoria.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        btnSalvarCategoria.setText("Salvar");
+        btnSalvarCategoria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarCategoriaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout painelCadastrarCategoriaLayout = new javax.swing.GroupLayout(painelCadastrarCategoria);
         painelCadastrarCategoria.setLayout(painelCadastrarCategoriaLayout);
@@ -58,7 +74,7 @@ public class DialogCadastrarCategoria extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(painelCadastrarCategoriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(painelCadastrarCategoriaLayout.createSequentialGroup()
-                        .addComponent(btnSalvar)
+                        .addComponent(btnSalvarCategoria)
                         .addGap(130, 130, 130)
                         .addComponent(btnVoltar))
                     .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 406, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -73,7 +89,7 @@ public class DialogCadastrarCategoria extends javax.swing.JDialog {
                     .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(87, 87, 87)
                 .addGroup(painelCadastrarCategoriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSalvar)
+                    .addComponent(btnSalvarCategoria)
                     .addComponent(btnVoltar))
                 .addContainerGap(371, Short.MAX_VALUE))
         );
@@ -83,50 +99,16 @@ public class DialogCadastrarCategoria extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DialogCadastrarProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DialogCadastrarProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DialogCadastrarProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DialogCadastrarProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void btnSalvarCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarCategoriaActionPerformed
 
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                DialogCadastrarProduto dialog = new DialogCadastrarProduto(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
+    }//GEN-LAST:event_btnSalvarCategoriaActionPerformed
+
+    private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
+        gerInterfaceGrafica.fecharJanela(this);
+    }//GEN-LAST:event_btnVoltarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnSalvar;
+    private javax.swing.JButton btnSalvarCategoria;
     private javax.swing.JButton btnVoltar;
     private javax.swing.JLabel lblNome;
     private javax.swing.JPanel painelCadastrarCategoria;

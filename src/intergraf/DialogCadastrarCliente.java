@@ -1,3 +1,7 @@
+package intergraf;
+
+import gertarefas.GerenciadorInterfaceGrafica;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -8,13 +12,14 @@
  *
  * @author thaly
  */
-public class DialogCadastrarAdm extends javax.swing.JDialog {
-
+public class DialogCadastrarCliente extends javax.swing.JDialog {
+    private GerenciadorInterfaceGrafica gerInterfaceGrafica;
     /**
      * Creates new form DialogCadastrarAdm
      */
-    public DialogCadastrarAdm(java.awt.Frame parent, boolean modal) {
+    public DialogCadastrarCliente(java.awt.Frame parent, boolean modal, GerenciadorInterfaceGrafica gerInterfaceGrafica) {
         super(parent, modal);
+        this.gerInterfaceGrafica = gerInterfaceGrafica;
         initComponents();
     }
 
@@ -28,7 +33,7 @@ public class DialogCadastrarAdm extends javax.swing.JDialog {
     private void initComponents() {
 
         grupoSexo = new javax.swing.ButtonGroup();
-        painelCadastrarAdm = new javax.swing.JPanel();
+        painelCadastrarCliente = new javax.swing.JPanel();
         lblNome = new javax.swing.JLabel();
         lblEmail = new javax.swing.JLabel();
         lblSenha = new javax.swing.JLabel();
@@ -43,7 +48,7 @@ public class DialogCadastrarAdm extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        painelCadastrarAdm.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 153, 255)), "Cadastrar Adm", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 3, 18), new java.awt.Color(51, 0, 255))); // NOI18N
+        painelCadastrarCliente.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 153, 255)), "Cadastrar Cliente", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 3, 18), new java.awt.Color(51, 0, 255))); // NOI18N
 
         lblNome.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         lblNome.setText("Nome:");
@@ -75,6 +80,11 @@ public class DialogCadastrarAdm extends javax.swing.JDialog {
 
         btnVoltar.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         btnVoltar.setText("Voltar");
+        btnVoltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVoltarActionPerformed(evt);
+            }
+        });
 
         lblSexo.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         lblSexo.setText("Sexo:");
@@ -92,31 +102,31 @@ public class DialogCadastrarAdm extends javax.swing.JDialog {
             }
         });
 
-        javax.swing.GroupLayout painelCadastrarAdmLayout = new javax.swing.GroupLayout(painelCadastrarAdm);
-        painelCadastrarAdm.setLayout(painelCadastrarAdmLayout);
-        painelCadastrarAdmLayout.setHorizontalGroup(
-            painelCadastrarAdmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelCadastrarAdmLayout.createSequentialGroup()
+        javax.swing.GroupLayout painelCadastrarClienteLayout = new javax.swing.GroupLayout(painelCadastrarCliente);
+        painelCadastrarCliente.setLayout(painelCadastrarClienteLayout);
+        painelCadastrarClienteLayout.setHorizontalGroup(
+            painelCadastrarClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelCadastrarClienteLayout.createSequentialGroup()
                 .addGap(200, 200, 200)
-                .addGroup(painelCadastrarAdmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(painelCadastrarAdmLayout.createSequentialGroup()
-                        .addGroup(painelCadastrarAdmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(painelCadastrarClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(painelCadastrarClienteLayout.createSequentialGroup()
+                        .addGroup(painelCadastrarClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblNome)
                             .addComponent(lblEmail))
                         .addGap(18, 18, 18)
-                        .addGroup(painelCadastrarAdmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(painelCadastrarClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtNome)
                             .addComponent(txtEmail1, javax.swing.GroupLayout.PREFERRED_SIZE, 486, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(painelCadastrarAdmLayout.createSequentialGroup()
+                    .addGroup(painelCadastrarClienteLayout.createSequentialGroup()
                         .addComponent(lblSenha)
                         .addGap(18, 18, 18)
                         .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 483, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(painelCadastrarAdmLayout.createSequentialGroup()
+                    .addGroup(painelCadastrarClienteLayout.createSequentialGroup()
                         .addGap(128, 128, 128)
                         .addComponent(btnSalvar)
                         .addGap(122, 122, 122)
                         .addComponent(btnVoltar))
-                    .addGroup(painelCadastrarAdmLayout.createSequentialGroup()
+                    .addGroup(painelCadastrarClienteLayout.createSequentialGroup()
                         .addComponent(lblSexo)
                         .addGap(43, 43, 43)
                         .addComponent(jRadioButton1)
@@ -124,35 +134,35 @@ public class DialogCadastrarAdm extends javax.swing.JDialog {
                         .addComponent(jRadioButton2)))
                 .addContainerGap(165, Short.MAX_VALUE))
         );
-        painelCadastrarAdmLayout.setVerticalGroup(
-            painelCadastrarAdmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelCadastrarAdmLayout.createSequentialGroup()
+        painelCadastrarClienteLayout.setVerticalGroup(
+            painelCadastrarClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelCadastrarClienteLayout.createSequentialGroup()
                 .addGap(189, 189, 189)
-                .addGroup(painelCadastrarAdmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(painelCadastrarClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblNome)
                     .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(36, 36, 36)
-                .addGroup(painelCadastrarAdmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(painelCadastrarClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblEmail)
                     .addComponent(txtEmail1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(24, 24, 24)
-                .addGroup(painelCadastrarAdmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(painelCadastrarClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblSexo)
-                    .addGroup(painelCadastrarAdmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addGroup(painelCadastrarClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jRadioButton1)
                         .addComponent(jRadioButton2)))
                 .addGap(18, 18, 18)
-                .addGroup(painelCadastrarAdmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(painelCadastrarClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblSenha)
                     .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(102, 102, 102)
-                .addGroup(painelCadastrarAdmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(painelCadastrarClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalvar)
                     .addComponent(btnVoltar))
                 .addContainerGap(240, Short.MAX_VALUE))
         );
 
-        getContentPane().add(painelCadastrarAdm, java.awt.BorderLayout.CENTER);
+        getContentPane().add(painelCadastrarCliente, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -169,47 +179,11 @@ public class DialogCadastrarAdm extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtSenhaActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DialogCadastrarAdm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DialogCadastrarAdm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DialogCadastrarAdm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DialogCadastrarAdm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
+        gerInterfaceGrafica.fecharJanela(this);
+    }//GEN-LAST:event_btnVoltarActionPerformed
 
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                DialogCadastrarAdm dialog = new DialogCadastrarAdm(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
+ 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSalvar;
@@ -221,7 +195,7 @@ public class DialogCadastrarAdm extends javax.swing.JDialog {
     private javax.swing.JLabel lblNome;
     private javax.swing.JLabel lblSenha;
     private javax.swing.JLabel lblSexo;
-    private javax.swing.JPanel painelCadastrarAdm;
+    private javax.swing.JPanel painelCadastrarCliente;
     private javax.swing.JTextField txtEmail1;
     private javax.swing.JTextField txtNome;
     private javax.swing.JTextField txtSenha;

@@ -67,9 +67,9 @@
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
-                                  <Component id="btnSalvar" min="-2" pref="135" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="71" max="-2" attributes="0"/>
-                                  <Component id="btnVoltar" min="-2" pref="132" max="-2" attributes="0"/>
+                                  <Component id="btnSalvarCategoria" min="-2" pref="126" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="80" max="-2" attributes="0"/>
+                                  <Component id="btnVoltar" min="-2" pref="113" max="-2" attributes="0"/>
                               </Group>
                               <Component id="selectCategoria" min="-2" pref="210" max="-2" attributes="0"/>
                           </Group>
@@ -99,10 +99,10 @@
                   </Group>
                   <EmptySpace min="-2" pref="112" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="btnSalvar" alignment="3" min="-2" pref="75" max="-2" attributes="0"/>
-                      <Component id="btnVoltar" alignment="3" min="-2" pref="75" max="-2" attributes="0"/>
+                      <Component id="btnSalvarCategoria" alignment="3" min="-2" pref="51" max="-2" attributes="0"/>
+                      <Component id="btnVoltar" alignment="3" min="-2" pref="51" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="246" max="32767" attributes="0"/>
+                  <EmptySpace pref="270" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -152,17 +152,11 @@
               <Font name="Tahoma" size="24" style="0"/>
             </Property>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="4">
-                <StringItem index="0" value="Produto 1"/>
-                <StringItem index="1" value="Produto 2"/>
-                <StringItem index="2" value="Produto 3"/>
-                <StringItem index="3" value="Produto 4"/>
+              <StringArray count="1">
+                <StringItem index="0" value="Categorias..."/>
               </StringArray>
             </Property>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="selectCategoriaActionPerformed"/>
-          </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
@@ -174,14 +168,20 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Voltar"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnVoltarActionPerformed"/>
+          </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="btnSalvar">
+        <Component class="javax.swing.JButton" name="btnSalvarCategoria">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="24" style="0"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Salvar"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSalvarCategoriaActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

@@ -1,19 +1,28 @@
+package intergraf;
+
+import dominio.Produto;
+import gertarefas.GerenciadorInterfaceGrafica;
+import java.util.ArrayList;
+import java.util.List;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author thaly
  */
 public class FramePrincipal extends javax.swing.JFrame {
 
+    private GerenciadorInterfaceGrafica gerInterfaceGrafica;
+
     /**
      * Creates new form FramePrincipal
      */
-    public FramePrincipal() {
+    public FramePrincipal(GerenciadorInterfaceGrafica gerInterfaceGrafica) {
+        this.gerInterfaceGrafica = gerInterfaceGrafica;
         initComponents();
     }
 
@@ -40,7 +49,7 @@ public class FramePrincipal extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         menuItemGerarRelatorio = new javax.swing.JMenuItem();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sistema Tec Store");
 
         menuAdm.setText("Administrador");
@@ -144,82 +153,41 @@ public class FramePrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void menuItemCadastrarAdmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemCadastrarAdmActionPerformed
-        DialogCadastrarAdm dlgCadastrarAdm = new DialogCadastrarAdm(this, rootPaneCheckingEnabled);
-        dlgCadastrarAdm.setVisible(rootPaneCheckingEnabled);
+        gerInterfaceGrafica.abrirDlgCadastrarAdm();
     }//GEN-LAST:event_menuItemCadastrarAdmActionPerformed
 
     private void menuItemCadastrarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemCadastrarProdutoActionPerformed
-        DialogCadastrarProduto dlgCadastrarProduto = new DialogCadastrarProduto(this, rootPaneCheckingEnabled);
-        dlgCadastrarProduto.setVisible(rootPaneCheckingEnabled);
+        gerInterfaceGrafica.abrirDlgCadastrarProduto();
     }//GEN-LAST:event_menuItemCadastrarProdutoActionPerformed
 
     private void menuItemCadastrarCategoriaProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemCadastrarCategoriaProdutoActionPerformed
-        DialogCadastrarCategoria dlgCadastrarCategoria = new DialogCadastrarCategoria(this, rootPaneCheckingEnabled);
-        dlgCadastrarCategoria.setVisible(rootPaneCheckingEnabled);
+        gerInterfaceGrafica.abrirDlgCadastrarCategoria();
     }//GEN-LAST:event_menuItemCadastrarCategoriaProdutoActionPerformed
 
     private void menuItemVisualizarProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemVisualizarProdutosActionPerformed
-        DialogVisualizarProdutos dlgVisualizarProdutos = new DialogVisualizarProdutos(this, rootPaneCheckingEnabled);
-        dlgVisualizarProdutos.setVisible(rootPaneCheckingEnabled);
+        gerInterfaceGrafica.abrirDlgVisualizarProdutos();
     }//GEN-LAST:event_menuItemVisualizarProdutosActionPerformed
 
     private void menuItemVisualizarCategoriaProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemVisualizarCategoriaProdutoActionPerformed
-        DialogVisualizarCategorias dlgVisualizarCategorias = new DialogVisualizarCategorias(this, rootPaneCheckingEnabled);
-        dlgVisualizarCategorias.setVisible(rootPaneCheckingEnabled);
+        gerInterfaceGrafica.abrirDlgVisualizarCategorias();
     }//GEN-LAST:event_menuItemVisualizarCategoriaProdutoActionPerformed
 
     private void menuItemVisualizarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemVisualizarPedidoActionPerformed
-        DialogVisualizarPedidos dlgVisualizarPedidos = new DialogVisualizarPedidos(this, rootPaneCheckingEnabled);
-        dlgVisualizarPedidos.setVisible(rootPaneCheckingEnabled);
+        gerInterfaceGrafica.abrirDlgVisualizarPedidos();
     }//GEN-LAST:event_menuItemVisualizarPedidoActionPerformed
 
     private void menuItemCadastrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemCadastrarClienteActionPerformed
-        DialogCadastrarCliente dlgCadastrarCliente = new DialogCadastrarCliente(this, rootPaneCheckingEnabled);
-        dlgCadastrarCliente.setVisible(rootPaneCheckingEnabled);
+        gerInterfaceGrafica.abrirDlgCadastrarCliente();
     }//GEN-LAST:event_menuItemCadastrarClienteActionPerformed
 
     private void menuItemRealizarPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemRealizarPedidosActionPerformed
-        DialogRealizarPedido dlgRealizarPedido = new DialogRealizarPedido(this, rootPaneCheckingEnabled);
-        dlgRealizarPedido.setVisible(rootPaneCheckingEnabled);
+        gerInterfaceGrafica.abrirDlgRealizarPedido();
     }//GEN-LAST:event_menuItemRealizarPedidosActionPerformed
 
     private void menuItemGerarRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemGerarRelatorioActionPerformed
-        DialogGerarRelatorio dlgGerarRelatorio = new DialogGerarRelatorio(this, rootPaneCheckingEnabled);
-        dlgGerarRelatorio.setVisible(rootPaneCheckingEnabled);
+        gerInterfaceGrafica.abrirDlgGerarRelatorio();
     }//GEN-LAST:event_menuItemGerarRelatorioActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FramePrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FramePrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FramePrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FramePrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> {
-            new FramePrincipal().setVisible(true);
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;
