@@ -51,6 +51,8 @@ public class DialogCadastrarAdm extends javax.swing.JDialog {
         lblSexo = new javax.swing.JLabel();
         jRadioButton1 = new javax.swing.JRadioButton();
         jRadioButton2 = new javax.swing.JRadioButton();
+        lblCPF = new javax.swing.JLabel();
+        txtCPF = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -108,6 +110,16 @@ public class DialogCadastrarAdm extends javax.swing.JDialog {
             }
         });
 
+        lblCPF.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        lblCPF.setText("CPF:");
+
+        txtCPF.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        txtCPF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCPFActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout painelCadastrarAdmLayout = new javax.swing.GroupLayout(painelCadastrarAdm);
         painelCadastrarAdm.setLayout(painelCadastrarAdmLayout);
         painelCadastrarAdmLayout.setHorizontalGroup(
@@ -124,10 +136,6 @@ public class DialogCadastrarAdm extends javax.swing.JDialog {
                             .addComponent(txtNome)
                             .addComponent(txtEmail1, javax.swing.GroupLayout.PREFERRED_SIZE, 486, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(painelCadastrarAdmLayout.createSequentialGroup()
-                        .addComponent(lblSenha)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 483, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(painelCadastrarAdmLayout.createSequentialGroup()
                         .addGap(128, 128, 128)
                         .addComponent(btnSalvar)
                         .addGap(122, 122, 122)
@@ -137,7 +145,16 @@ public class DialogCadastrarAdm extends javax.swing.JDialog {
                         .addGap(43, 43, 43)
                         .addComponent(jRadioButton1)
                         .addGap(77, 77, 77)
-                        .addComponent(jRadioButton2)))
+                        .addComponent(jRadioButton2))
+                    .addGroup(painelCadastrarAdmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(painelCadastrarAdmLayout.createSequentialGroup()
+                            .addComponent(lblCPF)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 483, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, painelCadastrarAdmLayout.createSequentialGroup()
+                            .addComponent(lblSenha)
+                            .addGap(18, 18, 18)
+                            .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 483, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(165, Short.MAX_VALUE))
         );
         painelCadastrarAdmLayout.setVerticalGroup(
@@ -161,7 +178,11 @@ public class DialogCadastrarAdm extends javax.swing.JDialog {
                 .addGroup(painelCadastrarAdmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblSenha)
                     .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(102, 102, 102)
+                .addGap(18, 18, 18)
+                .addGroup(painelCadastrarAdmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblCPF)
+                    .addComponent(txtCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(49, 49, 49)
                 .addGroup(painelCadastrarAdmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalvar)
                     .addComponent(btnVoltar))
@@ -189,6 +210,10 @@ public class DialogCadastrarAdm extends javax.swing.JDialog {
         gerInterfaceGrafica.fecharJanela(this);
     }//GEN-LAST:event_btnVoltarActionPerformed
 
+    private void txtCPFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCPFActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCPFActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSalvar;
@@ -196,11 +221,13 @@ public class DialogCadastrarAdm extends javax.swing.JDialog {
     private javax.swing.ButtonGroup grupoSexo;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;
+    private javax.swing.JLabel lblCPF;
     private javax.swing.JLabel lblEmail;
     private javax.swing.JLabel lblNome;
     private javax.swing.JLabel lblSenha;
     private javax.swing.JLabel lblSexo;
     private javax.swing.JPanel painelCadastrarAdm;
+    private javax.swing.JTextField txtCPF;
     private javax.swing.JTextField txtEmail1;
     private javax.swing.JTextField txtNome;
     private javax.swing.JTextField txtSenha;

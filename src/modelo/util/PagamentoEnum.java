@@ -1,4 +1,4 @@
-package dominio.util;
+package modelo.util;
 
 public enum PagamentoEnum {
     DINHEIRO("Dinheiro"),

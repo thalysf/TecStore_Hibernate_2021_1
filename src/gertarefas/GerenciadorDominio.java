@@ -1,21 +1,48 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package gertarefas;
 
+import dao.CategoriaDAO;
+import dao.ConexaoPostgreSQL;
+import dao.ProdutoDAO;
+import java.sql.SQLException;
+import java.util.List;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import modelo.Categoria;
 
-/**
- *
- * @author thalys
- */
 public class GerenciadorDominio {
-
-    public GerenciadorDominio() {
+    private CategoriaDAO categoriaDAO;
+    private ProdutoDAO produtoDAO;
+    public GerenciadorDominio() throws ClassNotFoundException, SQLException {
+       ConexaoPostgreSQL.obterConexao();    
+       this.categoriaDAO = new CategoriaDAO();
+       this.produtoDAO = new ProdutoDAO();
     }
+    // Categorias CRUD
+    
+    public List<Categoria> listarCategorias() throws ClassNotFoundException, SQLException
+    {
+        return categoriaDAO.listar();
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     /*
     public void inserirNaTabela(JTable tableCarrinhoPedido, Produto prod, JSpinner qtdPorProd) {
         ((DefaultTableModel) tableCarrinhoPedido.getModel()).addRow(new Object[4]);

@@ -1,11 +1,15 @@
 package gertarefas;
 
-import dominio.Produto;
 import intergraf.*;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
-import javax.swing.JSpinner;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
+import javax.swing.JOptionPane;
+import modelo.Categoria;
 
 
 public class GerenciadorInterfaceGrafica {
@@ -22,6 +26,8 @@ public class GerenciadorInterfaceGrafica {
     private DialogVisualizarPedidos dlgVisualizarPedidos;
     private DialogVisualizarProdutos dlgVisualizarProdutos;
 
+    private GerenciadorDominio gerenciadorDominio;
+    
     public GerenciadorInterfaceGrafica() {
         this.frmPrincipal = new FramePrincipal(this);
         this.dlgCadastrarAdm = new DialogCadastrarAdm(frmPrincipal, true, this);
@@ -34,8 +40,15 @@ public class GerenciadorInterfaceGrafica {
         this.dlgVisualizarCategorias = new DialogVisualizarCategorias(frmPrincipal, true, this);
         this.dlgVisualizarPedidos = new DialogVisualizarPedidos(frmPrincipal, true, this);
         this.dlgVisualizarProdutos = new DialogVisualizarProdutos(frmPrincipal, true, this);
+        
+        try {
+            this.gerenciadorDominio = new GerenciadorDominio();
+        } catch (ClassNotFoundException | SQLException e) {
+            JOptionPane.showMessageDialog(frmPrincipal, e);
+            System.exit(-1);
+        }
     }
-    
+    // Abertura de janelas
     public void abrirJanela(JDialog dlg)
     {
         dlg.setVisible(true);
@@ -82,6 +95,19 @@ public class GerenciadorInterfaceGrafica {
         abrirJanela(dlgVisualizarProdutos);
     }
     
+    // Carregar informações na tela a partir do banco
+    
+    public void carregarComboboxCategorias(JComboBox combo)
+    {
+        List<Categoria> listCat;
+        try {
+            listCat = gerenciadorDominio.listarCategorias();
+            combo.setModel(new DefaultComboBoxModel(listCat.toArray()));
+        } catch (ClassNotFoundException | SQLException e) {
+            JOptionPane.showMessageDialog(frmPrincipal, e);
+        } 
+        
+    }
     /**
      * @param args the command line arguments
      */

@@ -1,6 +1,6 @@
-package dominio;
+package modelo;
 
-import dominio.util.PagamentoEnum;
+import modelo.util.PagamentoEnum;
 import java.util.List;
 
 public class Pedido {

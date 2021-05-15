@@ -1,7 +1,7 @@
 package intergraf;
 
 
-import dominio.Produto;
+import modelo.Produto;
 import gertarefas.GerenciadorInterfaceGrafica;
 import javax.swing.table.DefaultTableModel;
 

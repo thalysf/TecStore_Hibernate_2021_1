@@ -1,14 +1,24 @@
-package dominio;
+package modelo;
 
 public class Produto {
+    private int id_produto;
     private String nome;
     private Double preco;
-    private String categoria;
+    private Categoria categoria;
 
-    public Produto(String nome, Double preco, String categoria) {
+    public Produto(int id_produto, String nome, Double preco, Categoria categoria) {
+        this.id_produto = id_produto;
         this.nome = nome;
         this.preco = preco;
         this.categoria = categoria;
+    }
+
+    public int getId_produto() {
+        return id_produto;
+    }
+
+    public void setId_produto(int id_produto) {
+        this.id_produto = id_produto;
     }
 
     public String getNome() {
@@ -27,13 +37,13 @@ public class Produto {
         this.preco = preco;
     }
 
-    public String getCategoria() {
+    public Categoria getCategoria() {
         return categoria;
     }
 
-    public void setCategoria(String categoria) {
+    public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
     }
-    
+
     
 }

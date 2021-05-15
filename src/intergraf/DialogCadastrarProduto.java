@@ -1,7 +1,7 @@
 package intergraf;
 
 
-import dominio.Produto;
+import modelo.Produto;
 import gertarefas.GerenciadorInterfaceGrafica;
 
 /*
@@ -45,6 +45,11 @@ public class DialogCadastrarProduto extends javax.swing.JDialog {
         btnSalvarCategoria = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                formComponentShown(evt);
+            }
+        });
 
         painelCadastrarProduto.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 204, 255)), "Cadastrar Produto", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 18), new java.awt.Color(0, 0, 204))); // NOI18N
 
@@ -62,7 +67,6 @@ public class DialogCadastrarProduto extends javax.swing.JDialog {
         lblCategoria.setText("Categoria:");
 
         selectCategoria.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        selectCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Categorias..." }));
 
         btnVoltar.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         btnVoltar.setText("Voltar");
@@ -140,6 +144,10 @@ public class DialogCadastrarProduto extends javax.swing.JDialog {
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
         gerInterfaceGrafica.fecharJanela(this);
     }//GEN-LAST:event_btnVoltarActionPerformed
+
+    private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
+        gerInterfaceGrafica.carregarComboboxCategorias(selectCategoria);
+    }//GEN-LAST:event_formComponentShown
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSalvarCategoria;
