@@ -1,17 +1,18 @@
 package gertarefas;
 
-import dao.CategoriaDAO;
-import dao.ConexaoPostgreSQL;
-import dao.ProdutoDAO;
+import dao.*;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import modelo.Categoria;
+import modelo.*;
 
 public class GerenciadorDominio {
+    // DAO's
     private CategoriaDAO categoriaDAO;
     private ProdutoDAO produtoDAO;
+    
     public GerenciadorDominio() throws ClassNotFoundException, SQLException {
        ConexaoPostgreSQL.obterConexao();    
        this.categoriaDAO = new CategoriaDAO();
@@ -24,6 +25,37 @@ public class GerenciadorDominio {
         return categoriaDAO.listar();
     }
     
+    public void inserirCategoria(Categoria cat) throws ClassNotFoundException, SQLException
+    {
+        categoriaDAO.inserir(cat);
+    }
+    
+    // Produto CRUD
+    
+    public void inserirProduto(Produto prod) throws ClassNotFoundException, SQLException
+    {
+        produtoDAO.inserir(prod);
+    }
+    public void alterarProduto(Produto prod) throws ClassNotFoundException, SQLException
+    {
+        produtoDAO.alterar(prod);
+    }
+    public void excluirProduto(Produto prod)  throws ClassNotFoundException, SQLException
+    {
+        produtoDAO.excluir(prod);
+    }
+    public List<Produto> pesquisarProduto(String nomeFiltro, String categoriaFilro, int tipoBusca) throws ClassNotFoundException, SQLException
+    {
+        List<Produto> resultadoBusca = new ArrayList<>();
+        switch(tipoBusca)
+        {
+            case 1: resultadoBusca = produtoDAO.listar(); break;
+            case 2: resultadoBusca = produtoDAO.pesquisarPorNome(nomeFiltro); break;
+            case 3: resultadoBusca = produtoDAO.pesquisarPorCategoria(categoriaFilro);break;
+            case 4: resultadoBusca = produtoDAO.pesquisarPorNomeAndCategoria(nomeFiltro, categoriaFilro); break;
+        }
+        return resultadoBusca;
+    }
     
     
     

@@ -1,6 +1,12 @@
 package intergraf;
 
 import gertarefas.GerenciadorInterfaceGrafica;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
+import modelo.Categoria;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -100,7 +106,13 @@ public class DialogCadastrarCategoria extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSalvarCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarCategoriaActionPerformed
-
+        Categoria cat = new Categoria(0, txtNome.getText());
+        try {
+            gerInterfaceGrafica.getGerenciadorDominio().inserirCategoria(cat);
+            JOptionPane.showMessageDialog(this, "Categoria " + cat.getId_categoria() + " inserida com sucesso!");
+        } catch (ClassNotFoundException | SQLException ex) {
+           JOptionPane.showMessageDialog(this, ex);
+        } 
     }//GEN-LAST:event_btnSalvarCategoriaActionPerformed
 
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed

@@ -21,4 +21,17 @@ public class CategoriaDAO {
         }
         return listCat;
     }
+    public void inserir(Categoria cat) throws ClassNotFoundException, SQLException
+    {
+        String sql = "INSERT INTO CATEGORIA(nome) VALUES (?)";
+        PreparedStatement pst =ConexaoPostgreSQL.obterConexao().prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
+        pst.setString(1, cat.getNome());
+        pst.execute();
+        ResultSet res = pst.getGeneratedKeys();
+        if(res.next())
+        {
+            int id = res.getInt(1);
+            cat.setId_categoria(id);
+        }
+    }
 }

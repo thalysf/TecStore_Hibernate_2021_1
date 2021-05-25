@@ -1,9 +1,9 @@
 package modelo.util;
 
 public enum PagamentoEnum {
-    DINHEIRO("Dinheiro"),
-    CARTAO("Cartão"),
-    CHEQUE("Cheque");
+    DINHEIRO("D"),
+    CARTAO("C"),
+    CHEQUE("H");
     
     private final String tipoPagamento;
     

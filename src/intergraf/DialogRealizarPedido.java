@@ -41,20 +41,21 @@ public class DialogRealizarPedido extends javax.swing.JDialog {
         menuExcluir = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
         lblAddProdCarrinho = new javax.swing.JLabel();
-        txtBuscaProd = new javax.swing.JTextField();
-        btnBuscarProd = new javax.swing.JButton();
-        lblBuscaProd = new javax.swing.JLabel();
-        selectProdutos = new javax.swing.JComboBox<>();
+        txtNomeFiltro = new javax.swing.JTextField();
+        btnBuscarComFiltros = new javax.swing.JButton();
+        lblNomeFiltro = new javax.swing.JLabel();
+        selectCategoriaFiltro = new javax.swing.JComboBox<>();
         qtdPorProd = new javax.swing.JSpinner();
         lblQtd = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         tableProdScroll = new javax.swing.JScrollPane();
         tableCarrinhoPedido = new javax.swing.JTable();
-        btnRemoverDoCarrinho = new javax.swing.JButton();
-        btnEditarItemCarrinho = new javax.swing.JButton();
+        btnRemoverItem = new javax.swing.JButton();
         btnFinalizarPedido = new javax.swing.JButton();
         lblTipoPagamento = new javax.swing.JLabel();
         selectTipoPagamento = new javax.swing.JComboBox<>();
+        btnLimparCarrinho = new javax.swing.JButton();
+        btnVoltar = new javax.swing.JButton();
         btnAdicionaAoCarrinho = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -62,6 +63,9 @@ public class DialogRealizarPedido extends javax.swing.JDialog {
         lblCatProd = new javax.swing.JLabel();
         lblNomeProduto = new javax.swing.JLabel();
         lblPrecoProduto = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        lblCategoriaFiltro = new javax.swing.JLabel();
+        selectProdutos1 = new javax.swing.JComboBox<>();
 
         menuExcluir.setText("Excluir");
         menuExcluir.addActionListener(new java.awt.event.ActionListener() {
@@ -76,17 +80,17 @@ public class DialogRealizarPedido extends javax.swing.JDialog {
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 102, 255)), "Realizar Pedido", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 18), new java.awt.Color(51, 0, 204))); // NOI18N
 
         lblAddProdCarrinho.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        lblAddProdCarrinho.setText("Adicione produtos ao carrinho");
+        lblAddProdCarrinho.setText("Adicione produtos ao carrinho:");
 
-        btnBuscarProd.setText("Buscar");
+        btnBuscarComFiltros.setText("Buscar");
 
-        lblBuscaProd.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        lblBuscaProd.setText("Busque produtos:");
+        lblNomeFiltro.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        lblNomeFiltro.setText("Nome:");
 
-        selectProdutos.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        selectProdutos.addActionListener(new java.awt.event.ActionListener() {
+        selectCategoriaFiltro.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        selectCategoriaFiltro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                selectProdutosActionPerformed(evt);
+                selectCategoriaFiltroActionPerformed(evt);
             }
         });
 
@@ -118,14 +122,7 @@ public class DialogRealizarPedido extends javax.swing.JDialog {
         tableCarrinhoPedido.setComponentPopupMenu(MenuPopUpExcluir);
         tableProdScroll.setViewportView(tableCarrinhoPedido);
 
-        btnRemoverDoCarrinho.setText("Remover");
-
-        btnEditarItemCarrinho.setText("Editar");
-        btnEditarItemCarrinho.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEditarItemCarrinhoActionPerformed(evt);
-            }
-        });
+        btnRemoverItem.setText("Remover item");
 
         btnFinalizarPedido.setText("Finalizar Pedido");
         btnFinalizarPedido.addActionListener(new java.awt.event.ActionListener() {
@@ -145,6 +142,15 @@ public class DialogRealizarPedido extends javax.swing.JDialog {
             }
         });
 
+        btnLimparCarrinho.setText("Limpar Carrinho");
+
+        btnVoltar.setText("Voltar");
+        btnVoltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVoltarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -153,33 +159,36 @@ public class DialogRealizarPedido extends javax.swing.JDialog {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(126, 126, 126)
-                        .addComponent(btnEditarItemCarrinho, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(85, 85, 85)
-                        .addComponent(btnRemoverDoCarrinho, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(82, 82, 82)
-                        .addComponent(btnFinalizarPedido))
+                        .addGap(116, 116, 116)
+                        .addComponent(btnRemoverItem, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(58, 58, 58)
+                        .addComponent(btnLimparCarrinho, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(66, 66, 66)
+                        .addComponent(btnFinalizarPedido)
+                        .addGap(43, 43, 43)
+                        .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(lblTipoPagamento)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(selectTipoPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(106, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(tableProdScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(tableProdScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 405, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblTipoPagamento)
                     .addComponent(selectTipoPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnRemoverDoCarrinho, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnEditarItemCarrinho, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnFinalizarPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(31, 31, 31))
+                    .addComponent(btnRemoverItem, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnFinalizarPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnLimparCarrinho, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(32, 32, 32))
         );
 
         btnAdicionaAoCarrinho.setText("Adicionar ao Carrinho");
@@ -210,6 +219,10 @@ public class DialogRealizarPedido extends javax.swing.JDialog {
         lblPrecoProduto.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
         lblPrecoProduto.setForeground(new java.awt.Color(255, 255, 0));
 
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("Categoria:");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -217,7 +230,9 @@ public class DialogRealizarPedido extends javax.swing.JDialog {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(66, 66, 66)
                 .addComponent(jLabel1)
-                .addGap(38, 38, 38)
+                .addGap(194, 194, 194)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblNomeProduto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2)
@@ -227,7 +242,7 @@ public class DialogRealizarPedido extends javax.swing.JDialog {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(285, 285, 285)
                 .addComponent(lblCatProd, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(461, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -240,9 +255,20 @@ public class DialogRealizarPedido extends javax.swing.JDialog {
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel1)
                         .addComponent(lblNomeProduto)
-                        .addComponent(lblPrecoProduto)))
+                        .addComponent(lblPrecoProduto)
+                        .addComponent(jLabel3)))
                 .addContainerGap())
         );
+
+        lblCategoriaFiltro.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        lblCategoriaFiltro.setText("Categoria");
+
+        selectProdutos1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        selectProdutos1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                selectProdutos1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -250,83 +276,80 @@ public class DialogRealizarPedido extends javax.swing.JDialog {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(lblBuscaProd)
-                        .addGap(35, 35, 35)
-                        .addComponent(txtBuscaProd))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(lblAddProdCarrinho)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
-                        .addComponent(selectProdutos, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblQtd)
-                    .addComponent(btnBuscarProd))
-                .addGap(65, 65, 65))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(55, 55, 55)
-                .addComponent(btnAdicionaAoCarrinho, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(31, 31, 31))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(66, 834, Short.MAX_VALUE)
-                        .addComponent(qtdPorProd, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(31, 31, 31))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(lblCategoriaFiltro)
+                                .addGap(18, 18, 18)
+                                .addComponent(selectCategoriaFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(34, 34, 34)
+                                .addComponent(btnBuscarComFiltros))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(lblNomeFiltro)
+                                .addGap(35, 35, 35)
+                                .addComponent(txtNomeFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 384, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnAdicionaAoCarrinho, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(lblAddProdCarrinho)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(selectProdutos1, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(28, 28, 28)
+                                .addComponent(lblQtd)
+                                .addGap(18, 18, 18)
+                                .addComponent(qtdPorProd, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtBuscaProd, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnBuscarProd, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(21, 21, 21)
+                        .addComponent(txtNomeFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(lblBuscaProd)))
-                .addGap(18, 18, 18)
+                        .addComponent(lblNomeFiltro)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblCategoriaFiltro)
+                    .addComponent(selectCategoriaFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBuscarComFiltros, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(20, 20, 20)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblAddProdCarrinho)
-                    .addComponent(selectProdutos, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(qtdPorProd, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblQtd))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(lblQtd)
+                    .addComponent(selectProdutos1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(40, 40, 40)
+                .addGap(18, 18, 18)
                 .addComponent(btnAdicionaAoCarrinho, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
-        selectProdutos.getAccessibleContext().setAccessibleName(selectProdutos.getName());
+        selectCategoriaFiltro.getAccessibleContext().setAccessibleName(selectCategoriaFiltro.getName());
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnEditarItemCarrinhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarItemCarrinhoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnEditarItemCarrinhoActionPerformed
-
     private void btnAdicionaAoCarrinhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionaAoCarrinhoActionPerformed
 
     }//GEN-LAST:event_btnAdicionaAoCarrinhoActionPerformed
   
-    private void selectProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectProdutosActionPerformed
+    private void selectCategoriaFiltroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectCategoriaFiltroActionPerformed
 
-    }//GEN-LAST:event_selectProdutosActionPerformed
+    }//GEN-LAST:event_selectCategoriaFiltroActionPerformed
 
     private void menuExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuExcluirActionPerformed
         
@@ -340,31 +363,43 @@ public class DialogRealizarPedido extends javax.swing.JDialog {
         gerInterfaceGrafica.fecharJanela(this);
     }//GEN-LAST:event_btnFinalizarPedidoActionPerformed
 
+    private void selectProdutos1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectProdutos1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_selectProdutos1ActionPerformed
+
+    private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnVoltarActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPopupMenu MenuPopUpExcluir;
     private javax.swing.JButton btnAdicionaAoCarrinho;
-    private javax.swing.JButton btnBuscarProd;
-    private javax.swing.JButton btnEditarItemCarrinho;
+    private javax.swing.JButton btnBuscarComFiltros;
     private javax.swing.JButton btnFinalizarPedido;
-    private javax.swing.JButton btnRemoverDoCarrinho;
+    private javax.swing.JButton btnLimparCarrinho;
+    private javax.swing.JButton btnRemoverItem;
+    private javax.swing.JButton btnVoltar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JLabel lblAddProdCarrinho;
-    private javax.swing.JLabel lblBuscaProd;
     private javax.swing.JLabel lblCatProd;
+    private javax.swing.JLabel lblCategoriaFiltro;
+    private javax.swing.JLabel lblNomeFiltro;
     private javax.swing.JLabel lblNomeProduto;
     private javax.swing.JLabel lblPrecoProduto;
     private javax.swing.JLabel lblQtd;
     private javax.swing.JLabel lblTipoPagamento;
     private javax.swing.JMenuItem menuExcluir;
     private javax.swing.JSpinner qtdPorProd;
-    private javax.swing.JComboBox<String> selectProdutos;
+    private javax.swing.JComboBox<String> selectCategoriaFiltro;
+    private javax.swing.JComboBox<String> selectProdutos1;
     private javax.swing.JComboBox<String> selectTipoPagamento;
     private javax.swing.JTable tableCarrinhoPedido;
     private javax.swing.JScrollPane tableProdScroll;
-    private javax.swing.JTextField txtBuscaProd;
+    private javax.swing.JTextField txtNomeFiltro;
     // End of variables declaration//GEN-END:variables
 }

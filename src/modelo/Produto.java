@@ -45,5 +45,13 @@ public class Produto {
         this.categoria = categoria;
     }
 
+    @Override
+    public String toString() {
+        return nome;
+    }
     
+    public Object[] toArray()
+    {
+        return new Object[]{this, categoria, preco};
+    }
 }

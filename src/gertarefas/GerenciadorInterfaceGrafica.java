@@ -108,6 +108,7 @@ public class GerenciadorInterfaceGrafica {
         } 
         
     }
+    
     /**
      * @param args the command line arguments
      */
@@ -140,5 +141,7 @@ public class GerenciadorInterfaceGrafica {
         gerInGraf.abrirFramePrincial();
     }
 
-   
+    public GerenciadorDominio getGerenciadorDominio() {
+        return gerenciadorDominio;
+    }
 }

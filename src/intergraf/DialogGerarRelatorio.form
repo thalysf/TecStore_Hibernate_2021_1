@@ -27,7 +27,7 @@
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-            <TitledBorder title="Cadastrar Categoria">
+            <TitledBorder title="Gerar Relat&#xf3;rio">
               <Border PropertyName="innerBorder" info="org.netbeans.modules.form.compat2.border.MatteColorBorderInfo">
                 <MatteColorBorder>
                   <Color PropertyName="color" blue="ff" green="cc" red="66" type="rgb"/>

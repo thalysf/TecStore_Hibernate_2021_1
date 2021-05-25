@@ -3,6 +3,11 @@ package intergraf;
 
 import modelo.Produto;
 import gertarefas.GerenciadorInterfaceGrafica;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import modelo.Categoria;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -67,6 +72,7 @@ public class DialogCadastrarProduto extends javax.swing.JDialog {
         lblCategoria.setText("Categoria:");
 
         selectCategoria.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        selectCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione a categoria..." }));
 
         btnVoltar.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         btnVoltar.setText("Voltar");
@@ -107,7 +113,7 @@ public class DialogCadastrarProduto extends javax.swing.JDialog {
                                 .addComponent(btnSalvarCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(80, 80, 80)
                                 .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(selectCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(selectCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(400, Short.MAX_VALUE))
         );
         painelCadastrarProdutoLayout.setVerticalGroup(
@@ -138,7 +144,13 @@ public class DialogCadastrarProduto extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSalvarCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarCategoriaActionPerformed
-
+        Produto prod = new Produto(0, txtNome.getText(), Double.parseDouble(txtPreco.getText()), (Categoria) selectCategoria.getSelectedItem());
+        try {
+            gerInterfaceGrafica.getGerenciadorDominio().inserirProduto(prod);
+            JOptionPane.showMessageDialog(this, "Produto " + prod.getId_produto() +  " inserido com sucesso!");
+        } catch (ClassNotFoundException | SQLException e) {
+            JOptionPane.showMessageDialog(this, e);
+        } 
     }//GEN-LAST:event_btnSalvarCategoriaActionPerformed
 
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
