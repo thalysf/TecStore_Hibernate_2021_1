@@ -1,11 +1,8 @@
 package intergraf;
 
-
 import modelo.Produto;
 import gertarefas.GerenciadorInterfaceGrafica;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import modelo.Categoria;
 
@@ -14,19 +11,22 @@ import modelo.Categoria;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author thaly
  */
 public class DialogCadastrarProduto extends javax.swing.JDialog {
+
     private GerenciadorInterfaceGrafica gerInterfaceGrafica;
+    private Produto produtoSelecionado;
+
     /**
      * Creates new form DialogCadastrarProduto
      */
     public DialogCadastrarProduto(java.awt.Frame parent, boolean modal, GerenciadorInterfaceGrafica gerInterfaceGrafica) {
         super(parent, modal);
         this.gerInterfaceGrafica = gerInterfaceGrafica;
+        produtoSelecionado = null;
         initComponents();
     }
 
@@ -57,6 +57,11 @@ public class DialogCadastrarProduto extends javax.swing.JDialog {
         });
 
         painelCadastrarProduto.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 204, 255)), "Cadastrar Produto", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 18), new java.awt.Color(0, 0, 204))); // NOI18N
+        painelCadastrarProduto.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                painelCadastrarProdutoComponentShown(evt);
+            }
+        });
 
         lblNome.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         lblNome.setText("Nome:");
@@ -144,13 +149,27 @@ public class DialogCadastrarProduto extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSalvarCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarCategoriaActionPerformed
-        Produto prod = new Produto(0, txtNome.getText(), Double.parseDouble(txtPreco.getText()), (Categoria) selectCategoria.getSelectedItem());
-        try {
-            gerInterfaceGrafica.getGerenciadorDominio().inserirProduto(prod);
-            JOptionPane.showMessageDialog(this, "Produto " + prod.getId_produto() +  " inserido com sucesso!");
-        } catch (ClassNotFoundException | SQLException e) {
-            JOptionPane.showMessageDialog(this, e);
-        } 
+        if (produtoSelecionado != null) {
+             try {
+                 produtoSelecionado.setCategoria((Categoria) selectCategoria.getSelectedItem());
+                 produtoSelecionado.setNome(txtNome.getText());
+                 produtoSelecionado.setPreco(Double.parseDouble(txtPreco.getText()));
+                gerInterfaceGrafica.getGerenciadorDominio().alterarProduto(produtoSelecionado);
+                JOptionPane.showMessageDialog(this, "Produto alterado com sucessoo com sucesso!");
+            } catch (ClassNotFoundException | SQLException e) {
+                JOptionPane.showMessageDialog(this, e);
+            }
+        } else {
+            Produto prod = new Produto(0, txtNome.getText(), Double.parseDouble(txtPreco.getText()), (Categoria) selectCategoria.getSelectedItem());
+
+            try {
+                gerInterfaceGrafica.getGerenciadorDominio().inserirProduto(prod);
+                JOptionPane.showMessageDialog(this, "Produto " + prod.getId_produto() + " inserido com sucesso!");
+            } catch (ClassNotFoundException | SQLException e) {
+                JOptionPane.showMessageDialog(this, e);
+            }
+        }
+
     }//GEN-LAST:event_btnSalvarCategoriaActionPerformed
 
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
@@ -159,7 +178,24 @@ public class DialogCadastrarProduto extends javax.swing.JDialog {
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
         gerInterfaceGrafica.carregarComboboxCategorias(selectCategoria);
+        if (produtoSelecionado != null) {
+            selectCategoria.setSelectedItem(produtoSelecionado.getCategoria());
+            txtNome.setText(produtoSelecionado.getNome());
+            txtPreco.setText(produtoSelecionado.getPreco().toString());
+        }
     }//GEN-LAST:event_formComponentShown
+    
+    private void painelCadastrarProdutoComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_painelCadastrarProdutoComponentShown
+        // TODO add your handling code here:
+    }//GEN-LAST:event_painelCadastrarProdutoComponentShown
+
+    public Produto getProdutoSelecionado() {
+        return produtoSelecionado;
+    }
+
+    public void setProdutoSelecionado(Produto produtoSelecionado) {
+        this.produtoSelecionado = produtoSelecionado;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSalvarCategoria;

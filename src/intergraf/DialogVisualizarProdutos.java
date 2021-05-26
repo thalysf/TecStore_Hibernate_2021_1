@@ -19,12 +19,14 @@ import modelo.Produto;
  */
 public class DialogVisualizarProdutos extends javax.swing.JDialog {
     private GerenciadorInterfaceGrafica gerInterfaceGrafica;
+    private Produto produtoSelecionado;
     /**
      * Creates new form VisualizarProdutos
      */
     public DialogVisualizarProdutos(java.awt.Frame parent, boolean modal, GerenciadorInterfaceGrafica gerInterfaceGrafica) {
         super(parent, modal);
         this.gerInterfaceGrafica = gerInterfaceGrafica;
+        this.produtoSelecionado = null;
         initComponents();
     }
 
@@ -81,6 +83,11 @@ public class DialogVisualizarProdutos extends javax.swing.JDialog {
         tableProdScroll.setViewportView(tableProd);
 
         btnEditar.setText("Editar");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
 
         btnExcluir.setText("Excluir");
         btnExcluir.addActionListener(new java.awt.event.ActionListener() {
@@ -208,6 +215,7 @@ public class DialogVisualizarProdutos extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
+         produtoSelecionado = null;
         gerInterfaceGrafica.fecharJanela(this);
     }//GEN-LAST:event_btnVoltarActionPerformed
 
@@ -284,6 +292,25 @@ public class DialogVisualizarProdutos extends javax.swing.JDialog {
         txtCategoriaFiltro.setText("");
         pesquisar();
     }//GEN-LAST:event_btnLimparActionPerformed
+
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        int linhaSelecionada = tableProd.getSelectedRow();
+         if(linhaSelecionada < 0)
+         {
+             JOptionPane.showMessageDialog(this, "Selecione um produto para editar!");
+         }
+         else
+         {
+             produtoSelecionado = (Produto) tableProd.getValueAt(linhaSelecionada, 0);
+             setVisible(false);
+             gerInterfaceGrafica.abrirDlgCadastrarProduto(produtoSelecionado);
+             gerInterfaceGrafica.fecharJanela(this);
+         }
+    }//GEN-LAST:event_btnEditarActionPerformed
+
+    public Produto getProdutoSelecionado() {
+        return produtoSelecionado;
+    }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEditar;

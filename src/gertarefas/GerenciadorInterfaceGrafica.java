@@ -3,13 +3,12 @@ package gertarefas;
 import intergraf.*;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import modelo.Categoria;
+import modelo.Produto;
 
 
 public class GerenciadorInterfaceGrafica {
@@ -94,7 +93,11 @@ public class GerenciadorInterfaceGrafica {
     public void abrirDlgVisualizarProdutos(){
         abrirJanela(dlgVisualizarProdutos);
     }
-    
+    // Telas de edição
+    public void abrirDlgCadastrarProduto(Produto produtoSelecionado){
+        dlgCadastrarProduto.setProdutoSelecionado(produtoSelecionado);
+        abrirJanela(dlgCadastrarProduto);
+    }
     // Carregar informações na tela a partir do banco
     
     public void carregarComboboxCategorias(JComboBox combo)

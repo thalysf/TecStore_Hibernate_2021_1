@@ -1,5 +1,7 @@
 package modelo;
 
+import java.util.Objects;
+
 public class Categoria {
     private int id_categoria;
     private String nome;
@@ -28,6 +30,35 @@ public class Categoria {
     @Override
     public String toString() {
         return nome;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 59 * hash + this.id_categoria;
+        hash = 59 * hash + Objects.hashCode(this.nome);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Categoria other = (Categoria) obj;
+        if (this.id_categoria != other.id_categoria) {
+            return false;
+        }
+        if (!Objects.equals(this.nome, other.nome)) {
+            return false;
+        }
+        return true;
     }
     
 }

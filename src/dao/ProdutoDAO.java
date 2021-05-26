@@ -18,7 +18,7 @@ public class ProdutoDAO {
         int i = 1;
         pst.setInt(i++, prod.getCategoria().getId_categoria());
         pst.setString(i++, prod.getNome());
-        pst.setDouble(i, prod.getPreco());
+        pst.setDouble(i++, prod.getPreco());
         pst.execute();
         
         ResultSet res = pst.getGeneratedKeys();
@@ -38,12 +38,12 @@ public class ProdutoDAO {
     
     public void alterar (Produto prod) throws ClassNotFoundException, SQLException
     {
-        String sql = "UPDATE PRODUTO SET(id_categoria=?, nome=?, preco=?) WHERE id_produto = " + prod.getId_produto();
-        PreparedStatement pst =ConexaoPostgreSQL.obterConexao().prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
+        String sql = "UPDATE PRODUTO SET id_categoria = ?, nome = ?, preco = ? WHERE id_produto = " + prod.getId_produto();
+        PreparedStatement pst =ConexaoPostgreSQL.obterConexao().prepareStatement(sql);
         int i = 1;
         pst.setInt(i++, prod.getCategoria().getId_categoria());
         pst.setString(i++, prod.getNome());
-        pst.setDouble(i, prod.getPreco());
+        pst.setDouble(i++, prod.getPreco());
         pst.execute();
     }
     
