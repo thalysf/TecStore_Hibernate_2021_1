@@ -160,7 +160,7 @@ public class DialogCadastrarProduto extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(this, e);
             }
         } else {
-            Produto prod = new Produto(0, txtNome.getText(), Double.parseDouble(txtPreco.getText()), (Categoria) selectCategoria.getSelectedItem());
+            Produto prod = new Produto(txtNome.getText(), Double.parseDouble(txtPreco.getText()), (Categoria) selectCategoria.getSelectedItem());
 
             try {
                 gerInterfaceGrafica.getGerenciadorDominio().inserirProduto(prod);

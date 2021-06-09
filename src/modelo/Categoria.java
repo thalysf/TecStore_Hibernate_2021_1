@@ -13,6 +13,8 @@ public class Categoria implements Serializable{
     @Column(length = 100, nullable = false)
     private String nome;
 
+    public Categoria(){
+    }
     public Categoria(int id_categoria, String nome) {
         this.id_categoria = id_categoria;
         this.nome = nome;

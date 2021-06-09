@@ -20,15 +20,13 @@ public class Produto implements Serializable{
     @JoinColumn(name = "id_categoria", nullable = false)
     private Categoria categoria;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "ItensPedido", 
-            joinColumns  = {@JoinColumn (name="id_produto")},
-            inverseJoinColumns = {@JoinColumn(name="id_pedido")}
-    )
-    private List<Pedido> pedidos;
-    
-    public Produto(int id_produto, String nome, Double preco, Categoria categoria) {
-        this.id_produto = id_produto;
+    @OneToMany (mappedBy = "idComposto.produto", fetch = FetchType.LAZY)
+    private List<ItensPedido> itensPedidos;
+
+    public Produto() {
+    }
+
+    public Produto(String nome, Double preco, Categoria categoria) {
         this.nome = nome;
         this.preco = preco;
         this.categoria = categoria;
@@ -65,7 +63,7 @@ public class Produto implements Serializable{
     public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
     }
-
+    
     @Override
     public String toString() {
         return nome;

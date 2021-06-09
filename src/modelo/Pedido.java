@@ -28,12 +28,10 @@ public class Pedido implements Serializable {
     @Column(nullable = false)
     private Double valorTotalPedido;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "ItensPedido", 
-            joinColumns  = {@JoinColumn (name="id_pedido")},
-            inverseJoinColumns = {@JoinColumn(name="id_produto")}
-    )
-    private List<Produto> produtos;
+    @OneToMany (mappedBy = "idComposto.pedido", 
+                fetch = FetchType.LAZY,
+                cascade = CascadeType.ALL )
+    private List<ItensPedido> itensPedidos;
 
     public Pedido(int id_pedido, Usuario usuario, PagamentoEnum tipoPagamento, Date dataPedido, Double valorTotalPedido) {
         this.id_pedido = id_pedido;

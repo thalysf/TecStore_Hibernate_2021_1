@@ -20,10 +20,22 @@ public class ItensPedido implements Serializable{
     @Column(nullable = false)
     private int quantidade;
 
-    public ItensPedido(int quantidade) {
+    public ItensPedido() {
+    }
+
+    public ItensPedido(Pedido pedido, Produto produto, int quantidade) {
+        this.idComposto = new ItensPedidoPK(pedido, produto);
         this.quantidade = quantidade;
     }
-    
+
+    public ItensPedidoPK getIdComposto() {
+        return idComposto;
+    }
+
+    public void setIdComposto(ItensPedidoPK idComposto) {
+        this.idComposto = idComposto;
+    }
+
     public int getQuantidade() {
         return quantidade;
     }
@@ -31,5 +43,4 @@ public class ItensPedido implements Serializable{
     public void setQuantidade(int quantidade) {
         this.quantidade = quantidade;
     }
-    
 }
