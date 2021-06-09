@@ -10,17 +10,17 @@ package modelo.util;
  * @author thaly
  */
 public enum TipoUsuarioEnum {
-    ADMINISTRADOR("A"),
-    CLIENTE("C");
+    A("Administrador"),
+    C("Cliente");
     
-    private final String tipo;
+    private final String label;
     
-    private TipoUsuarioEnum(String tipo)
+    private TipoUsuarioEnum(String label)
     {
-        this.tipo = tipo;
+        this.label = label;
     }
 
     public String getTipo() {
-        return tipo;
+        return label;
     }
 }

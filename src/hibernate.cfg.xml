@@ -49,5 +49,11 @@ Contributor(s):
     <property name="hibernate.show_sql">true</property>
     <property name="hibernate.format_sql">true</property>
     <property name="hibernate.query.factory_class">org.hibernate.hql.internal.classic.ClassicQueryTranslatorFactory</property>
+    <property name="hibernate.hbm2ddl.auto">create</property>
+    <mapping class="modelo.Categoria"/>
+    <mapping class="modelo.Pedido"/>
+    <mapping class="modelo.Produto"/>
+    <mapping class="modelo.Usuario"/>
+    <mapping class="modelo.ItensPedido"/>
   </session-factory>
 </hibernate-configuration>

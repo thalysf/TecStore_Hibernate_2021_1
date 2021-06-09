@@ -1,17 +1,17 @@
 package modelo.util;
 
 public enum SexoEnum {
-    MASCULINO("M"),
-    FEMININO("F");
+    M("Masculino"),
+    F("Feminino");
     
-    private final String sexo;
+    private final String label;
     
-    private SexoEnum(String sexo)
+    private SexoEnum(String label)
     {
-        this.sexo = sexo;
+        this.label = label;
     }
 
     public String getSexo() {
-        return sexo;
+        return label;
     }
 }

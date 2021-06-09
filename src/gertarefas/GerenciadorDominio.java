@@ -14,7 +14,7 @@ public class GerenciadorDominio {
     private ProdutoDAO produtoDAO;
     
     public GerenciadorDominio() throws ClassNotFoundException, SQLException {
-       ConexaoPostgreSQL.obterConexao();    
+       ConexaoHibernate.getSessionFactory(); // abrir conexão hibernate com bd postgresql
        this.categoriaDAO = new CategoriaDAO();
        this.produtoDAO = new ProdutoDAO();
     }

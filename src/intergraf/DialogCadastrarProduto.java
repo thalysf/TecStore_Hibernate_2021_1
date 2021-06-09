@@ -47,7 +47,7 @@ public class DialogCadastrarProduto extends javax.swing.JDialog {
         lblCategoria = new javax.swing.JLabel();
         selectCategoria = new javax.swing.JComboBox<>();
         btnVoltar = new javax.swing.JButton();
-        btnSalvarCategoria = new javax.swing.JButton();
+        btnSalvarProduto = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addComponentListener(new java.awt.event.ComponentAdapter() {
@@ -87,11 +87,11 @@ public class DialogCadastrarProduto extends javax.swing.JDialog {
             }
         });
 
-        btnSalvarCategoria.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        btnSalvarCategoria.setText("Salvar");
-        btnSalvarCategoria.addActionListener(new java.awt.event.ActionListener() {
+        btnSalvarProduto.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        btnSalvarProduto.setText("Salvar");
+        btnSalvarProduto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSalvarCategoriaActionPerformed(evt);
+                btnSalvarProdutoActionPerformed(evt);
             }
         });
 
@@ -115,7 +115,7 @@ public class DialogCadastrarProduto extends javax.swing.JDialog {
                         .addGap(18, 18, 18)
                         .addGroup(painelCadastrarProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(painelCadastrarProdutoLayout.createSequentialGroup()
-                                .addComponent(btnSalvarCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnSalvarProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(80, 80, 80)
                                 .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(selectCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -138,7 +138,7 @@ public class DialogCadastrarProduto extends javax.swing.JDialog {
                     .addComponent(selectCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(112, 112, 112)
                 .addGroup(painelCadastrarProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSalvarCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSalvarProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(270, Short.MAX_VALUE))
         );
@@ -148,7 +148,7 @@ public class DialogCadastrarProduto extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnSalvarCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarCategoriaActionPerformed
+    private void btnSalvarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarProdutoActionPerformed
         if (produtoSelecionado != null) {
              try {
                  produtoSelecionado.setCategoria((Categoria) selectCategoria.getSelectedItem());
@@ -170,7 +170,7 @@ public class DialogCadastrarProduto extends javax.swing.JDialog {
             }
         }
 
-    }//GEN-LAST:event_btnSalvarCategoriaActionPerformed
+    }//GEN-LAST:event_btnSalvarProdutoActionPerformed
 
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
         gerInterfaceGrafica.fecharJanela(this);
@@ -198,7 +198,7 @@ public class DialogCadastrarProduto extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnSalvarCategoria;
+    private javax.swing.JButton btnSalvarProduto;
     private javax.swing.JButton btnVoltar;
     private javax.swing.JLabel lblCategoria;
     private javax.swing.JLabel lblNome;

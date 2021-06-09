@@ -1,9 +1,16 @@
 package modelo;
 
+import java.io.Serializable;
 import java.util.Objects;
+import javax.persistence.*;
 
-public class Categoria {
+@Entity
+public class Categoria implements Serializable{
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id_categoria;
+    
+    @Column(length = 100, nullable = false)
     private String nome;
 
     public Categoria(int id_categoria, String nome) {

@@ -1,13 +1,38 @@
 package modelo;
 import modelo.util.*;
-public class Usuario {
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.*;
+
+@Entity
+public class Usuario implements Serializable{
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id_usuario;
+    
+    @Column(nullable = false)
     private String nome;
+    
+    @Column(nullable = false)
     private String email;
+    
+    @Column(length = 1, nullable = false)
+    @Enumerated(EnumType.STRING)
     private SexoEnum sexo;
+   
+    @Column(nullable = false, length = 120)
     private String senha;
+    
+    @Column(nullable = false, length = 14)
     private String CPF;
+    
+    @Column(length = 1, nullable = false)
+    @Enumerated(EnumType.STRING)
     private TipoUsuarioEnum tipoUsuario;
+    
+    @OneToMany ( mappedBy = "usuario", fetch = FetchType.LAZY )
+    private List<Pedido> pedidos = new ArrayList();
 
     public Usuario(int id_usuario, String nome, String email, SexoEnum sexo, String senha, String CPF, TipoUsuarioEnum tipoUsuario) {
         this.id_usuario = id_usuario;
