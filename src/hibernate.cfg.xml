@@ -55,5 +55,6 @@ Contributor(s):
     <mapping class="modelo.Produto"/>
     <mapping class="modelo.Usuario"/>
     <mapping class="modelo.ItensPedido"/>
+    <mapping class="modelo.ItensPedidoPK"/>
   </session-factory>
 </hibernate-configuration>

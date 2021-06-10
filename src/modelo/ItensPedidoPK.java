@@ -8,6 +8,7 @@ public class ItensPedidoPK implements Serializable {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_pedido", nullable = false)
     private Pedido pedido;
+    
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_produto", nullable = false)
     private Produto produto;
