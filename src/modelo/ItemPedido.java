@@ -13,26 +13,26 @@ import javax.persistence.*;
  * @author thalys
  */
 @Entity
-public class ItensPedido implements Serializable{
+public class ItemPedido implements Serializable{
     @EmbeddedId
-    private ItensPedidoPK idComposto;
+    private ItemPedidoPK idComposto;
     
     @Column(nullable = false)
     private int quantidade;
 
-    public ItensPedido() {
+    public ItemPedido() {
     }
 
-    public ItensPedido(Pedido pedido, Produto produto, int quantidade) {
-        this.idComposto = new ItensPedidoPK(pedido, produto);
+    public ItemPedido(Pedido pedido, Produto produto, int quantidade) {
+        this.idComposto = new ItemPedidoPK(pedido, produto);
         this.quantidade = quantidade;
     }
 
-    public ItensPedidoPK getIdComposto() {
+    public ItemPedidoPK getIdComposto() {
         return idComposto;
     }
 
-    public void setIdComposto(ItensPedidoPK idComposto) {
+    public void setIdComposto(ItemPedidoPK idComposto) {
         this.idComposto = idComposto;
     }
 

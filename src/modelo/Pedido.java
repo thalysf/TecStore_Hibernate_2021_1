@@ -3,6 +3,7 @@ package modelo;
 import java.util.Date;
 import modelo.util.PagamentoEnum;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
 
@@ -15,7 +16,7 @@ public class Pedido implements Serializable {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_usuario", nullable = false)
-    private Usuario usuario;
+    private Cliente usuario;
 
     @Column(length = 1, nullable = false)
     @Enumerated(EnumType.STRING)
@@ -31,14 +32,18 @@ public class Pedido implements Serializable {
     @OneToMany (mappedBy = "idComposto.pedido", 
                 fetch = FetchType.LAZY,
                 cascade = CascadeType.ALL )
-    private List<ItensPedido> itensPedidos;
+    private List<ItemPedido> itensPedidos;
 
-    public Pedido(int id_pedido, Usuario usuario, PagamentoEnum tipoPagamento, Date dataPedido, Double valorTotalPedido) {
+    public Pedido() {
+    }
+
+    public Pedido(int id_pedido, Cliente usuario, PagamentoEnum tipoPagamento, Date dataPedido, Double valorTotalPedido) {
         this.id_pedido = id_pedido;
         this.usuario = usuario;
         this.tipoPagamento = tipoPagamento;
         this.dataPedido = dataPedido;
         this.valorTotalPedido = valorTotalPedido;
+        this.itensPedidos = new ArrayList();
     }
 
     public int getId_pedido() {
@@ -49,11 +54,11 @@ public class Pedido implements Serializable {
         this.id_pedido = id_pedido;
     }
 
-    public Usuario getUsuario() {
+    public Cliente getUsuario() {
         return usuario;
     }
 
-    public void setUsuario(Usuario usuario) {
+    public void setUsuario(Cliente usuario) {
         this.usuario = usuario;
     }
 
@@ -81,4 +86,11 @@ public class Pedido implements Serializable {
         this.valorTotalPedido = valorTotalPedido;
     }
 
+    public List<ItemPedido> getItensPedidos() {
+        return itensPedidos;
+    }
+
+    public void setItensPedidos(List<ItemPedido> itensPedidos) {
+        this.itensPedidos = itensPedidos;
+    }
 }

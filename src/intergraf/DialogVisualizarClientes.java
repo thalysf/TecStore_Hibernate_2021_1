@@ -1,10 +1,10 @@
 package intergraf;
 
 import gertarefas.GerenciadorInterfaceGrafica;
-import java.sql.SQLException;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import modelo.Cliente;
 import modelo.Produto;
 import org.hibernate.HibernateException;
 
@@ -18,16 +18,16 @@ import org.hibernate.HibernateException;
  *
  * @author thaly
  */
-public class DialogVisualizarProdutos extends javax.swing.JDialog {
+public class DialogVisualizarClientes extends javax.swing.JDialog {
     private GerenciadorInterfaceGrafica gerInterfaceGrafica;
-    private Produto produtoSelecionado;
+    private Cliente clienteSelecionado;
     /**
      * Creates new form VisualizarProdutos
      */
-    public DialogVisualizarProdutos(java.awt.Frame parent, boolean modal, GerenciadorInterfaceGrafica gerInterfaceGrafica) {
+    public DialogVisualizarClientes(java.awt.Frame parent, boolean modal, GerenciadorInterfaceGrafica gerInterfaceGrafica) {
         super(parent, modal);
         this.gerInterfaceGrafica = gerInterfaceGrafica;
-        this.produtoSelecionado = null;
+        this.clienteSelecionado = null;
         initComponents();
     }
 
@@ -47,9 +47,7 @@ public class DialogVisualizarProdutos extends javax.swing.JDialog {
         btnExcluir = new javax.swing.JButton();
         btnVoltar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
-        lblCategoriaFiltro = new javax.swing.JLabel();
         lblNomeFiltro = new javax.swing.JLabel();
-        txtCategoriaFiltro = new javax.swing.JTextField();
         txtNomeFiltro = new javax.swing.JTextField();
         btnPesquisar = new javax.swing.JButton();
         btnLimpar = new javax.swing.JButton();
@@ -62,7 +60,7 @@ public class DialogVisualizarProdutos extends javax.swing.JDialog {
             }
         });
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 153, 255)), "Visualizar Produto", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 18), new java.awt.Color(0, 51, 255))); // NOI18N
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 153, 255)), "Visualizar Cliente", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 18), new java.awt.Color(0, 51, 255))); // NOI18N
 
         tableProd.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(102, 102, 102), 1, true));
         tableProd.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -71,11 +69,11 @@ public class DialogVisualizarProdutos extends javax.swing.JDialog {
 
             },
             new String [] {
-                "Nome", "Categoria", "Preço"
+                "Nome", "Email", "CPF", "Sexo"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -105,18 +103,8 @@ public class DialogVisualizarProdutos extends javax.swing.JDialog {
             }
         });
 
-        lblCategoriaFiltro.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        lblCategoriaFiltro.setText("Categoria:");
-
         lblNomeFiltro.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         lblNomeFiltro.setText("Nome:");
-
-        txtCategoriaFiltro.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        txtCategoriaFiltro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCategoriaFiltroActionPerformed(evt);
-            }
-        });
 
         txtNomeFiltro.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         txtNomeFiltro.addActionListener(new java.awt.event.ActionListener() {
@@ -146,36 +134,28 @@ public class DialogVisualizarProdutos extends javax.swing.JDialog {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(43, 43, 43)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(lblCategoriaFiltro)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtCategoriaFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(lblNomeFiltro)
-                        .addGap(47, 47, 47)
-                        .addComponent(txtNomeFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(67, 67, 67)
+                .addComponent(lblNomeFiltro)
+                .addGap(33, 33, 33)
+                .addComponent(txtNomeFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnPesquisar)
                 .addGap(18, 18, 18)
                 .addComponent(btnLimpar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(128, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(27, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtNomeFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblNomeFiltro))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblCategoriaFiltro)
-                    .addComponent(txtCategoriaFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnPesquisar)
-                    .addComponent(btnLimpar))
-                .addGap(16, 16, 16))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(58, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblNomeFiltro)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(txtNomeFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(33, 33, 33))
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnPesquisar)
+                        .addComponent(btnLimpar))))
         );
 
         btnSelecionar.setText("Selecionar");
@@ -227,7 +207,7 @@ public class DialogVisualizarProdutos extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
-         produtoSelecionado = null;
+         clienteSelecionado = null;
         gerInterfaceGrafica.fecharJanela(this);
     }//GEN-LAST:event_btnVoltarActionPerformed
 
@@ -235,38 +215,19 @@ public class DialogVisualizarProdutos extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNomeFiltroActionPerformed
 
-    private void txtCategoriaFiltroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCategoriaFiltroActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCategoriaFiltroActionPerformed
-
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
         pesquisar();
     }//GEN-LAST:event_formComponentShown
+    
     private void pesquisar()
     {
-        int op;
-        if(!txtNomeFiltro.getText().isEmpty() && txtCategoriaFiltro.getText().isEmpty())
-        {
-            op = 2;
-        }
-        else if(!txtCategoriaFiltro.getText().isEmpty() && txtNomeFiltro.getText().isEmpty())
-        {
-            op = 3;
-        }
-        else if(!txtNomeFiltro.getText().isEmpty() && !txtCategoriaFiltro.getText().isEmpty())
-        {
-            op = 4;
-        }
-        else
-        {
-            op = 1;
-        }
         try {
             // Resetando tabela
             ((DefaultTableModel) tableProd.getModel()).setRowCount(0);
             // Busca com filtros
-            List<Produto> produtos = gerInterfaceGrafica.getGerenciadorDominio().pesquisarProduto(txtNomeFiltro.getText(), txtCategoriaFiltro.getText(), op);
-            produtos.stream().forEach((p) -> {
+            List<Cliente> clientes = gerInterfaceGrafica.getGerenciadorDominio().listar(Cliente.class);
+           // List<Produto> produtos = gerInterfaceGrafica.getGerenciadorDominio().pesquisarProduto(txtNomeFiltro.getText());
+            clientes.stream().forEach((p) -> {
                   ((DefaultTableModel) tableProd.getModel()).addRow(p.toArray());
              });
         } catch (HibernateException e) {
@@ -300,9 +261,9 @@ public class DialogVisualizarProdutos extends javax.swing.JDialog {
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
-        txtNomeFiltro.setText("");
-        txtCategoriaFiltro.setText("");
-        pesquisar();
+//        txtNomeFiltro.setText("");
+//        txtCategoriaFiltro.setText("");
+//        pesquisar();
     }//GEN-LAST:event_btnLimparActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
@@ -313,9 +274,9 @@ public class DialogVisualizarProdutos extends javax.swing.JDialog {
          }
          else
          {
-             produtoSelecionado = (Produto) tableProd.getValueAt(linhaSelecionada, 0);
+             clienteSelecionado = (Cliente) tableProd.getValueAt(linhaSelecionada, 0);
              setVisible(false);
-             gerInterfaceGrafica.abrirDlgCadastrarProduto(produtoSelecionado);
+             // gerInterfaceGrafica.abrirDlgCadastrarCliente(clienteSelecionado); ...implementar
              gerInterfaceGrafica.fecharJanela(this);
          }
     }//GEN-LAST:event_btnEditarActionPerformed
@@ -324,19 +285,19 @@ public class DialogVisualizarProdutos extends javax.swing.JDialog {
         int linhaSelecionada = tableProd.getSelectedRow();
          if(linhaSelecionada < 0)
          {
-             JOptionPane.showMessageDialog(this, "Selecione um produto!");
+             JOptionPane.showMessageDialog(this, "Selecione um cliente!");
          }
          else
          {
-             produtoSelecionado = (Produto) tableProd.getValueAt(linhaSelecionada, 0);
+             clienteSelecionado = (Cliente) tableProd.getValueAt(linhaSelecionada, 0);
              setVisible(false);
-             gerInterfaceGrafica.abrirDlgRealizarPedidoCarregarProduto(produtoSelecionado);
+             gerInterfaceGrafica.abrirDlgRealizarPedidoCarregarCliente(clienteSelecionado);
              gerInterfaceGrafica.fecharJanela(this);
          }
     }//GEN-LAST:event_btnSelecionarActionPerformed
 
-    public Produto getProdutoSelecionado() {
-        return produtoSelecionado;
+    public Cliente getClienteSelecionado() {
+        return clienteSelecionado;
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -348,11 +309,9 @@ public class DialogVisualizarProdutos extends javax.swing.JDialog {
     private javax.swing.JButton btnVoltar;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JLabel lblCategoriaFiltro;
     private javax.swing.JLabel lblNomeFiltro;
     private javax.swing.JTable tableProd;
     private javax.swing.JScrollPane tableProdScroll;
-    private javax.swing.JTextField txtCategoriaFiltro;
     private javax.swing.JTextField txtNomeFiltro;
     // End of variables declaration//GEN-END:variables
 }

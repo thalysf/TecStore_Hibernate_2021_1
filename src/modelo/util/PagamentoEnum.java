@@ -3,7 +3,7 @@ package modelo.util;
 public enum PagamentoEnum {
     D("Dinheiro"),
     C("Cartão"),
-    H("Cheque");
+    B("Boleto");
     
     private final String label;
     
@@ -15,4 +15,10 @@ public enum PagamentoEnum {
     public String getTipoPagamento() {
         return label;
     }
+
+    @Override
+    public String toString() {
+        return label;
+    }
+    
 }

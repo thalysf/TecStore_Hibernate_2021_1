@@ -2,6 +2,7 @@ package modelo;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 import javax.persistence.*;
 
 @Entity
@@ -21,7 +22,7 @@ public class Produto implements Serializable{
     private Categoria categoria;
 
     @OneToMany (mappedBy = "idComposto.produto", fetch = FetchType.LAZY)
-    private List<ItensPedido> itensPedidos;
+    private List<ItemPedido> itensPedidos;
 
     public Produto() {
     }

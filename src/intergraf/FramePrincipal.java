@@ -38,14 +38,13 @@ public class FramePrincipal extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         menuAdm = new javax.swing.JMenu();
-        menuItemCadastrarAdm = new javax.swing.JMenuItem();
-        menuItemCadastrarProduto = new javax.swing.JMenuItem();
+        menuItemCadastrarCliente = new javax.swing.JMenuItem();
         menuItemCadastrarCategoriaProduto = new javax.swing.JMenuItem();
+        menuItemCadastrarProduto = new javax.swing.JMenuItem();
         menuItemVisualizarProdutos = new javax.swing.JMenuItem();
         menuItemVisualizarCategoriaProduto = new javax.swing.JMenuItem();
         menuItemVisualizarPedido = new javax.swing.JMenuItem();
-        menuCliente = new javax.swing.JMenu();
-        menuItemCadastrarCliente = new javax.swing.JMenuItem();
+        menuItemVisualizarClientes = new javax.swing.JMenuItem();
         menuItemRealizarPedidos = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         menuItemGerarRelatorio = new javax.swing.JMenuItem();
@@ -57,23 +56,15 @@ public class FramePrincipal extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setText("Bem-vindo: Usuário X");
 
-        menuAdm.setText("Administrador");
+        menuAdm.setText("Menu");
 
-        menuItemCadastrarAdm.setText("Cadastrar Adm");
-        menuItemCadastrarAdm.addActionListener(new java.awt.event.ActionListener() {
+        menuItemCadastrarCliente.setText("Cadastrar Clientes");
+        menuItemCadastrarCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuItemCadastrarAdmActionPerformed(evt);
+                menuItemCadastrarClienteActionPerformed(evt);
             }
         });
-        menuAdm.add(menuItemCadastrarAdm);
-
-        menuItemCadastrarProduto.setText("Cadastrar Produtos");
-        menuItemCadastrarProduto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuItemCadastrarProdutoActionPerformed(evt);
-            }
-        });
-        menuAdm.add(menuItemCadastrarProduto);
+        menuAdm.add(menuItemCadastrarCliente);
 
         menuItemCadastrarCategoriaProduto.setText("Cadastrar Categoria de Produto");
         menuItemCadastrarCategoriaProduto.addActionListener(new java.awt.event.ActionListener() {
@@ -82,6 +73,14 @@ public class FramePrincipal extends javax.swing.JFrame {
             }
         });
         menuAdm.add(menuItemCadastrarCategoriaProduto);
+
+        menuItemCadastrarProduto.setText("Cadastrar Produtos");
+        menuItemCadastrarProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemCadastrarProdutoActionPerformed(evt);
+            }
+        });
+        menuAdm.add(menuItemCadastrarProduto);
 
         menuItemVisualizarProdutos.setText("Visualizar Produtos");
         menuItemVisualizarProdutos.addActionListener(new java.awt.event.ActionListener() {
@@ -107,17 +106,13 @@ public class FramePrincipal extends javax.swing.JFrame {
         });
         menuAdm.add(menuItemVisualizarPedido);
 
-        jMenuBar1.add(menuAdm);
-
-        menuCliente.setText("Cliente");
-
-        menuItemCadastrarCliente.setText("Cadastrar Clientes");
-        menuItemCadastrarCliente.addActionListener(new java.awt.event.ActionListener() {
+        menuItemVisualizarClientes.setText("Visualizar Clientes");
+        menuItemVisualizarClientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuItemCadastrarClienteActionPerformed(evt);
+                menuItemVisualizarClientesActionPerformed(evt);
             }
         });
-        menuCliente.add(menuItemCadastrarCliente);
+        menuAdm.add(menuItemVisualizarClientes);
 
         menuItemRealizarPedidos.setText("Realizar Pedidos");
         menuItemRealizarPedidos.addActionListener(new java.awt.event.ActionListener() {
@@ -125,9 +120,9 @@ public class FramePrincipal extends javax.swing.JFrame {
                 menuItemRealizarPedidosActionPerformed(evt);
             }
         });
-        menuCliente.add(menuItemRealizarPedidos);
+        menuAdm.add(menuItemRealizarPedidos);
 
-        jMenuBar1.add(menuCliente);
+        jMenuBar1.add(menuAdm);
 
         jMenu1.setText("Relatórios");
 
@@ -162,10 +157,6 @@ public class FramePrincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void menuItemCadastrarAdmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemCadastrarAdmActionPerformed
-        gerInterfaceGrafica.abrirDlgCadastrarAdm();
-    }//GEN-LAST:event_menuItemCadastrarAdmActionPerformed
-
     private void menuItemCadastrarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemCadastrarProdutoActionPerformed
         gerInterfaceGrafica.abrirDlgCadastrarProduto();
     }//GEN-LAST:event_menuItemCadastrarProdutoActionPerformed
@@ -186,6 +177,10 @@ public class FramePrincipal extends javax.swing.JFrame {
         gerInterfaceGrafica.abrirDlgVisualizarPedidos();
     }//GEN-LAST:event_menuItemVisualizarPedidoActionPerformed
 
+    private void menuItemGerarRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemGerarRelatorioActionPerformed
+        gerInterfaceGrafica.abrirDlgGerarRelatorio();
+    }//GEN-LAST:event_menuItemGerarRelatorioActionPerformed
+
     private void menuItemCadastrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemCadastrarClienteActionPerformed
         gerInterfaceGrafica.abrirDlgCadastrarCliente();
     }//GEN-LAST:event_menuItemCadastrarClienteActionPerformed
@@ -194,9 +189,9 @@ public class FramePrincipal extends javax.swing.JFrame {
         gerInterfaceGrafica.abrirDlgRealizarPedido();
     }//GEN-LAST:event_menuItemRealizarPedidosActionPerformed
 
-    private void menuItemGerarRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemGerarRelatorioActionPerformed
-        gerInterfaceGrafica.abrirDlgGerarRelatorio();
-    }//GEN-LAST:event_menuItemGerarRelatorioActionPerformed
+    private void menuItemVisualizarClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemVisualizarClientesActionPerformed
+        gerInterfaceGrafica.abrirDlgVisualizarClientes();
+    }//GEN-LAST:event_menuItemVisualizarClientesActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -204,14 +199,13 @@ public class FramePrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenu menuAdm;
-    private javax.swing.JMenu menuCliente;
-    private javax.swing.JMenuItem menuItemCadastrarAdm;
     private javax.swing.JMenuItem menuItemCadastrarCategoriaProduto;
     private javax.swing.JMenuItem menuItemCadastrarCliente;
     private javax.swing.JMenuItem menuItemCadastrarProduto;
     private javax.swing.JMenuItem menuItemGerarRelatorio;
     private javax.swing.JMenuItem menuItemRealizarPedidos;
     private javax.swing.JMenuItem menuItemVisualizarCategoriaProduto;
+    private javax.swing.JMenuItem menuItemVisualizarClientes;
     private javax.swing.JMenuItem menuItemVisualizarPedido;
     private javax.swing.JMenuItem menuItemVisualizarProdutos;
     // End of variables declaration//GEN-END:variables

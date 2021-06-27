@@ -7,14 +7,17 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 import modelo.Categoria;
+import modelo.Cliente;
 import modelo.Produto;
+import org.hibernate.HibernateException;
 
 
 public class GerenciadorInterfaceGrafica {
 
     private FramePrincipal frmPrincipal;
-    private DialogCadastrarAdm dlgCadastrarAdm;
     private DialogCadastrarCategoria dlgCadastrarCategoria;
     private DialogCadastrarCliente dlgCadastrarCliente;
     private DialogCadastrarProduto dlgCadastrarProduto;
@@ -24,12 +27,11 @@ public class GerenciadorInterfaceGrafica {
     private DialogVisualizarCategorias dlgVisualizarCategorias;
     private DialogVisualizarPedidos dlgVisualizarPedidos;
     private DialogVisualizarProdutos dlgVisualizarProdutos;
-
+    private DialogVisualizarClientes dlgVisualizarClientes;
     private GerenciadorDominio gerenciadorDominio;
     
     public GerenciadorInterfaceGrafica() {
         this.frmPrincipal = new FramePrincipal(this);
-        this.dlgCadastrarAdm = new DialogCadastrarAdm(frmPrincipal, true, this);
         this.dlgCadastrarCategoria = new DialogCadastrarCategoria(frmPrincipal, true, this);
         this.dlgCadastrarCliente = new DialogCadastrarCliente(frmPrincipal, true, this);
         this.dlgCadastrarProduto = new DialogCadastrarProduto(frmPrincipal, true, this);
@@ -39,10 +41,10 @@ public class GerenciadorInterfaceGrafica {
         this.dlgVisualizarCategorias = new DialogVisualizarCategorias(frmPrincipal, true, this);
         this.dlgVisualizarPedidos = new DialogVisualizarPedidos(frmPrincipal, true, this);
         this.dlgVisualizarProdutos = new DialogVisualizarProdutos(frmPrincipal, true, this);
-        
+        this.dlgVisualizarClientes = new DialogVisualizarClientes(frmPrincipal, true, this);
         try {
             this.gerenciadorDominio = new GerenciadorDominio();
-        } catch (ClassNotFoundException | SQLException e) {
+        } catch (HibernateException e) {
             JOptionPane.showMessageDialog(frmPrincipal, e);
             System.exit(-1);
         }
@@ -60,10 +62,7 @@ public class GerenciadorInterfaceGrafica {
     {
         frmPrincipal.setVisible(true);
     }
-    
-    public void abrirDlgCadastrarAdm(){
-        abrirJanela(dlgCadastrarAdm);
-    }
+ 
     public void abrirDlgCadastrarCategoria(){
         abrirJanela(dlgCadastrarCategoria);
     }
@@ -93,25 +92,54 @@ public class GerenciadorInterfaceGrafica {
     public void abrirDlgVisualizarProdutos(){
         abrirJanela(dlgVisualizarProdutos);
     }
+    public void abrirDlgVisualizarClientes()
+    {
+        abrirJanela(dlgVisualizarClientes);
+    }
     // Telas de edição
     public void abrirDlgCadastrarProduto(Produto produtoSelecionado){
         dlgCadastrarProduto.setProdutoSelecionado(produtoSelecionado);
         abrirJanela(dlgCadastrarProduto);
     }
-    // Carregar informações na tela a partir do banco
     
-    public void carregarComboboxCategorias(JComboBox combo)
-    {
-        List<Categoria> listCat;
-        try {
-            listCat = gerenciadorDominio.listarCategorias();
-            combo.setModel(new DefaultComboBoxModel(listCat.toArray()));
-        } catch (ClassNotFoundException | SQLException e) {
-            JOptionPane.showMessageDialog(frmPrincipal, e);
-        } 
-        
+    // Tela de seleção
+    public void abrirDlgRealizarPedidoCarregarProduto(Produto produtoSelecionado){
+        dlgRealizarPedido.setProdSelecionado(produtoSelecionado);
+        dlgRealizarPedido.carregarInfoProd();
+        abrirJanela(dlgRealizarPedido);
+    }
+    public void abrirDlgRealizarPedidoCarregarCliente(Cliente clienteSelecionado){
+        dlgRealizarPedido.setClienteSelecionado(clienteSelecionado);
+        dlgRealizarPedido.carregarInfoCliente();
+        abrirJanela(dlgRealizarPedido);
     }
     
+    // Carregar informações na tela a partir do banco ( carrega combo )
+    
+    public void carregarCombobox(JComboBox combo, Class classe)
+    {
+        List<Categoria> list;
+        try {
+            list = gerenciadorDominio.listar(classe);
+            combo.setModel(new DefaultComboBoxModel(list.toArray()));
+        } catch (HibernateException e) {
+            JOptionPane.showMessageDialog(frmPrincipal, e);
+        } 
+    }
+    
+    // Inserir na tabela de pedido
+    public void insereNaTabelaPedido(Produto prod, int qtdProd, JTable tabela)  
+    {
+        ((DefaultTableModel) tabela.getModel()).addRow(new Object[4]);
+        int linhaAtual = tabela.getRowCount() - 1;
+        int i = 0;
+        
+        tabela.setValueAt(prod, linhaAtual, i++);
+        tabela.setValueAt(qtdProd, linhaAtual, i++);
+        tabela.setValueAt(prod.getCategoria().getNome(), linhaAtual, i++);
+        tabela.setValueAt(prod.getPreco(), linhaAtual, i++);
+        tabela.setValueAt(qtdProd * prod.getPreco(), linhaAtual, i++);
+    }
     /**
      * @param args the command line arguments
      */

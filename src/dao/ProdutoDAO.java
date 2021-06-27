@@ -1,47 +1,28 @@
 package dao;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.List;
-import modelo.Categoria;
 import modelo.Produto;
+import org.hibernate.HibernateException;
 
-public class ProdutoDAO {
-    public void inserir(Produto prod) throws ClassNotFoundException, SQLException
-    {
-        
-    }
-    public void excluir(Produto prod) throws ClassNotFoundException, SQLException
-    {
-        
-    }
-    
-    public void alterar (Produto prod) throws ClassNotFoundException, SQLException
-    {
-        
-    }
-    
-    private List<Produto> pesquisar(String busca) throws ClassNotFoundException, SQLException
-    {
+public class ProdutoDAO extends GenericDAO{
+
+    private List<Produto> pesquisar(String busca) throws HibernateException {
         return null;
     }
-    public List<Produto> pesquisarPorNome(String nomeFiltro) throws ClassNotFoundException, SQLException
-    {
+
+    public List<Produto> pesquisarPorNome(String nomeFiltro) throws HibernateException {
         return null;
     }
-    public List<Produto> pesquisarPorCategoria(String categoriaFiltro) throws ClassNotFoundException, SQLException
-    {
+
+    public List<Produto> pesquisarPorCategoria(String categoriaFiltro) throws HibernateException {
         return null;
     }
-    public List<Produto> pesquisarPorNomeAndCategoria(String nomeFiltro, String categoriaFiltro) throws ClassNotFoundException, SQLException
-    {
+
+    public List<Produto> pesquisarPorNomeAndCategoria(String nomeFiltro, String categoriaFiltro) throws HibernateException {
         return null;
     }
-    public List<Produto> listar() throws ClassNotFoundException, SQLException
-    {
+
+    public List<Produto> listar() throws HibernateException {
         return null;
     }
 }

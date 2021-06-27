@@ -1,6 +1,9 @@
 package intergraf;
 
 import gertarefas.GerenciadorInterfaceGrafica;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+import modelo.Categoria;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -44,6 +47,11 @@ public class DialogVisualizarCategorias extends javax.swing.JDialog {
         btnLimpar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                formComponentShown(evt);
+            }
+        });
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.LINE_AXIS));
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 153, 255)), "Visualizar Categoria", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 18), new java.awt.Color(0, 51, 255))); // NOI18N
@@ -145,6 +153,19 @@ public class DialogVisualizarCategorias extends javax.swing.JDialog {
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
         gerInterfaceGrafica.fecharJanela(this);
     }//GEN-LAST:event_btnVoltarActionPerformed
+
+    private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
+       List<Categoria> categorias = gerInterfaceGrafica.getGerenciadorDominio().listar(Categoria.class);
+        ((DefaultTableModel) tableCategoria.getModel()).addRow(new Object[1]);
+        int i = 0;
+       for(Categoria cat : categorias)
+       {
+            tableCategoria.setValueAt(cat, i++, 0);
+       }
+      
+        
+       
+    }//GEN-LAST:event_formComponentShown
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEditar;

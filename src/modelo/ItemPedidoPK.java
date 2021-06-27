@@ -4,7 +4,7 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 @Embeddable
-public class ItensPedidoPK implements Serializable {
+public class ItemPedidoPK implements Serializable {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_pedido", nullable = false)
     private Pedido pedido;
@@ -13,11 +13,11 @@ public class ItensPedidoPK implements Serializable {
     @JoinColumn(name = "id_produto", nullable = false)
     private Produto produto;
 
-    public ItensPedidoPK() {
+    public ItemPedidoPK() {
     }
 
     
-    public ItensPedidoPK(Pedido pedido, Produto produto) {
+    public ItemPedidoPK(Pedido pedido, Produto produto) {
         this.pedido = pedido;
         this.produto = produto;
     }

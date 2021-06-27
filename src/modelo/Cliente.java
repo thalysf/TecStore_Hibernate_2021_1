@@ -3,10 +3,11 @@ import modelo.util.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 import javax.persistence.*;
 
 @Entity
-public class Usuario implements Serializable{
+public class Cliente implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id_usuario;
@@ -21,27 +22,23 @@ public class Usuario implements Serializable{
     @Enumerated(EnumType.STRING)
     private SexoEnum sexo;
    
-    @Column(nullable = false, length = 120)
-    private String senha;
-    
+  
     @Column(nullable = false, length = 14)
     private String CPF;
-    
-    @Column(length = 1, nullable = false)
-    @Enumerated(EnumType.STRING)
-    private TipoUsuarioEnum tipoUsuario;
     
     @OneToMany ( mappedBy = "usuario", fetch = FetchType.LAZY )
     private List<Pedido> pedidos = new ArrayList();
 
-    public Usuario(int id_usuario, String nome, String email, SexoEnum sexo, String senha, String CPF, TipoUsuarioEnum tipoUsuario) {
+    public Cliente() {
+    }
+
+    
+    public Cliente(int id_usuario, String nome, String email, SexoEnum sexo, String CPF) {
         this.id_usuario = id_usuario;
         this.nome = nome;
         this.email = email;
         this.sexo = sexo;
-        this.senha = senha;
         this.CPF = CPF;
-        this.tipoUsuario = tipoUsuario;
     }
 
     public int getId_usuario() {
@@ -76,29 +73,20 @@ public class Usuario implements Serializable{
         this.sexo = sexo;
     }
 
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
-
     public String getCPF() {
         return CPF;
     }
 
     public void setCPF(String CPF) {
         this.CPF = CPF;
+    } 
+
+    @Override
+    public String toString() {
+        return nome;
     }
 
-    public TipoUsuarioEnum getTipoUsuario() {
-        return tipoUsuario;
+    public Object[] toArray() {
+         return new Object[]{this, nome, email, CPF, sexo};
     }
-
-    public void setTipoUsuario(TipoUsuarioEnum tipoUsuario) {
-        this.tipoUsuario = tipoUsuario;
-    }
-
-    
 }

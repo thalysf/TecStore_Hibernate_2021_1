@@ -2,9 +2,9 @@ package intergraf;
 
 import modelo.Produto;
 import gertarefas.GerenciadorInterfaceGrafica;
-import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import modelo.Categoria;
+import org.hibernate.HibernateException;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -13,7 +13,7 @@ import modelo.Categoria;
  */
 /**
  *
- * @author thaly
+ * @author thalys
  */
 public class DialogCadastrarProduto extends javax.swing.JDialog {
 
@@ -154,18 +154,18 @@ public class DialogCadastrarProduto extends javax.swing.JDialog {
                  produtoSelecionado.setCategoria((Categoria) selectCategoria.getSelectedItem());
                  produtoSelecionado.setNome(txtNome.getText());
                  produtoSelecionado.setPreco(Double.parseDouble(txtPreco.getText()));
-                gerInterfaceGrafica.getGerenciadorDominio().alterarProduto(produtoSelecionado);
+                gerInterfaceGrafica.getGerenciadorDominio().alterar(produtoSelecionado);
                 JOptionPane.showMessageDialog(this, "Produto alterado com sucessoo com sucesso!");
-            } catch (ClassNotFoundException | SQLException e) {
+            } catch (HibernateException e ) {
                 JOptionPane.showMessageDialog(this, e);
             }
         } else {
             Produto prod = new Produto(txtNome.getText(), Double.parseDouble(txtPreco.getText()), (Categoria) selectCategoria.getSelectedItem());
 
             try {
-                gerInterfaceGrafica.getGerenciadorDominio().inserirProduto(prod);
+                gerInterfaceGrafica.getGerenciadorDominio().inserir(prod);
                 JOptionPane.showMessageDialog(this, "Produto " + prod.getId_produto() + " inserido com sucesso!");
-            } catch (ClassNotFoundException | SQLException e) {
+            } catch (HibernateException e) {
                 JOptionPane.showMessageDialog(this, e);
             }
         }
@@ -177,7 +177,7 @@ public class DialogCadastrarProduto extends javax.swing.JDialog {
     }//GEN-LAST:event_btnVoltarActionPerformed
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
-        gerInterfaceGrafica.carregarComboboxCategorias(selectCategoria);
+        gerInterfaceGrafica.carregarCombobox(selectCategoria, Categoria.class);
         if (produtoSelecionado != null) {
             selectCategoria.setSelectedItem(produtoSelecionado.getCategoria());
             txtNome.setText(produtoSelecionado.getNome());
@@ -208,4 +208,8 @@ public class DialogCadastrarProduto extends javax.swing.JDialog {
     private javax.swing.JTextField txtNome;
     private javax.swing.JTextField txtPreco;
     // End of variables declaration//GEN-END:variables
+
+    public void carregarInfoProd() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

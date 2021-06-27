@@ -1,6 +1,10 @@
 package intergraf;
 
 import gertarefas.GerenciadorInterfaceGrafica;
+import javax.swing.JOptionPane;
+import modelo.Cliente;
+import modelo.util.SexoEnum;
+import org.hibernate.HibernateException;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -36,15 +40,13 @@ public class DialogCadastrarCliente extends javax.swing.JDialog {
         painelCadastrarCliente = new javax.swing.JPanel();
         lblNome = new javax.swing.JLabel();
         lblEmail = new javax.swing.JLabel();
-        lblSenha = new javax.swing.JLabel();
         txtNome = new javax.swing.JTextField();
-        txtSenha = new javax.swing.JTextField();
-        txtEmail1 = new javax.swing.JTextField();
+        txtEmail = new javax.swing.JTextField();
         btnSalvar = new javax.swing.JButton();
         btnVoltar = new javax.swing.JButton();
         lblSexo = new javax.swing.JLabel();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
+        radioSexoMasculino = new javax.swing.JRadioButton();
+        radioSexoFeminino = new javax.swing.JRadioButton();
         txtCPF = new javax.swing.JTextField();
         lblCPF = new javax.swing.JLabel();
 
@@ -58,27 +60,22 @@ public class DialogCadastrarCliente extends javax.swing.JDialog {
         lblEmail.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         lblEmail.setText("Email:");
 
-        lblSenha.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        lblSenha.setText("Senha:");
-
         txtNome.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
 
-        txtSenha.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        txtSenha.addActionListener(new java.awt.event.ActionListener() {
+        txtEmail.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        txtEmail.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtSenhaActionPerformed(evt);
-            }
-        });
-
-        txtEmail1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        txtEmail1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtEmail1ActionPerformed(evt);
+                txtEmailActionPerformed(evt);
             }
         });
 
         btnSalvar.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         btnSalvar.setText("Salvar");
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarActionPerformed(evt);
+            }
+        });
 
         btnVoltar.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         btnVoltar.setText("Voltar");
@@ -91,16 +88,17 @@ public class DialogCadastrarCliente extends javax.swing.JDialog {
         lblSexo.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         lblSexo.setText("Sexo:");
 
-        grupoSexo.add(jRadioButton1);
-        jRadioButton1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jRadioButton1.setText("Masculino");
+        grupoSexo.add(radioSexoMasculino);
+        radioSexoMasculino.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        radioSexoMasculino.setSelected(true);
+        radioSexoMasculino.setText("Masculino");
 
-        grupoSexo.add(jRadioButton2);
-        jRadioButton2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jRadioButton2.setText("Feminino");
-        jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
+        grupoSexo.add(radioSexoFeminino);
+        radioSexoFeminino.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        radioSexoFeminino.setText("Feminino");
+        radioSexoFeminino.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton2ActionPerformed(evt);
+                radioSexoFemininoActionPerformed(evt);
             }
         });
 
@@ -119,35 +117,32 @@ public class DialogCadastrarCliente extends javax.swing.JDialog {
         painelCadastrarClienteLayout.setHorizontalGroup(
             painelCadastrarClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelCadastrarClienteLayout.createSequentialGroup()
-                .addGap(200, 200, 200)
                 .addGroup(painelCadastrarClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(painelCadastrarClienteLayout.createSequentialGroup()
+                        .addGap(200, 200, 200)
                         .addGroup(painelCadastrarClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblNome)
-                            .addComponent(lblEmail))
-                        .addGap(18, 18, 18)
-                        .addGroup(painelCadastrarClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtNome)
-                            .addComponent(txtEmail1, javax.swing.GroupLayout.PREFERRED_SIZE, 486, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(painelCadastrarClienteLayout.createSequentialGroup()
+                                .addComponent(lblSexo)
+                                .addGap(43, 43, 43)
+                                .addComponent(radioSexoMasculino)
+                                .addGap(77, 77, 77)
+                                .addComponent(radioSexoFeminino))
+                            .addGroup(painelCadastrarClienteLayout.createSequentialGroup()
+                                .addGroup(painelCadastrarClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblNome)
+                                    .addComponent(lblEmail)
+                                    .addComponent(lblCPF))
+                                .addGap(18, 18, 18)
+                                .addGroup(painelCadastrarClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 483, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(painelCadastrarClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(txtNome)
+                                        .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 486, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                     .addGroup(painelCadastrarClienteLayout.createSequentialGroup()
-                        .addGap(128, 128, 128)
+                        .addGap(337, 337, 337)
                         .addComponent(btnSalvar)
-                        .addGap(122, 122, 122)
-                        .addComponent(btnVoltar))
-                    .addGroup(painelCadastrarClienteLayout.createSequentialGroup()
-                        .addComponent(lblSexo)
-                        .addGap(43, 43, 43)
-                        .addComponent(jRadioButton1)
-                        .addGap(77, 77, 77)
-                        .addComponent(jRadioButton2))
-                    .addGroup(painelCadastrarClienteLayout.createSequentialGroup()
-                        .addGroup(painelCadastrarClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblSenha)
-                            .addComponent(lblCPF))
-                        .addGap(18, 18, 18)
-                        .addGroup(painelCadastrarClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 483, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 483, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(107, 107, 107)
+                        .addComponent(btnVoltar)))
                 .addContainerGap(165, Short.MAX_VALUE))
         );
         painelCadastrarClienteLayout.setVerticalGroup(
@@ -160,26 +155,25 @@ public class DialogCadastrarCliente extends javax.swing.JDialog {
                 .addGap(36, 36, 36)
                 .addGroup(painelCadastrarClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblEmail)
-                    .addComponent(txtEmail1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(24, 24, 24)
                 .addGroup(painelCadastrarClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblSexo)
                     .addGroup(painelCadastrarClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jRadioButton1)
-                        .addComponent(jRadioButton2)))
-                .addGap(18, 18, 18)
-                .addGroup(painelCadastrarClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblSenha)
-                    .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(painelCadastrarClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblCPF)
-                    .addComponent(txtCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(49, 49, 49)
+                        .addComponent(radioSexoMasculino)
+                        .addComponent(radioSexoFeminino)))
+                .addGroup(painelCadastrarClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(painelCadastrarClienteLayout.createSequentialGroup()
+                        .addGap(25, 25, 25)
+                        .addComponent(lblCPF))
+                    .addGroup(painelCadastrarClienteLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(txtCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(25, 25, 25)
                 .addGroup(painelCadastrarClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalvar)
                     .addComponent(btnVoltar))
-                .addContainerGap(240, Short.MAX_VALUE))
+                .addContainerGap(316, Short.MAX_VALUE))
         );
 
         getContentPane().add(painelCadastrarCliente, java.awt.BorderLayout.CENTER);
@@ -187,17 +181,13 @@ public class DialogCadastrarCliente extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
+    private void radioSexoFemininoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioSexoFemininoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton2ActionPerformed
+    }//GEN-LAST:event_radioSexoFemininoActionPerformed
 
-    private void txtEmail1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmail1ActionPerformed
+    private void txtEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmailActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtEmail1ActionPerformed
-
-    private void txtSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSenhaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtSenhaActionPerformed
+    }//GEN-LAST:event_txtEmailActionPerformed
 
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
         gerInterfaceGrafica.fecharJanela(this);
@@ -207,23 +197,40 @@ public class DialogCadastrarCliente extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCPFActionPerformed
 
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        Cliente cliente = new Cliente(0, txtNome.getText(), txtEmail.getText(), null, txtCPF.getText());
+        if(radioSexoFeminino.isSelected())
+        {
+            cliente.setSexo(SexoEnum.F);     
+        }
+        else
+        {
+            cliente.setSexo(SexoEnum.M);
+        }
+        System.out.println(cliente.toString());
+        try {
+            gerInterfaceGrafica.getGerenciadorDominio().inserir(cliente);
+            JOptionPane.showMessageDialog(this, "Cliente " + cliente.getId_usuario() + " inserido com sucesso!");
+        } catch (HibernateException e) {
+           JOptionPane.showMessageDialog(this, e);
+        } 
+    }//GEN-LAST:event_btnSalvarActionPerformed
+
  
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSalvar;
     private javax.swing.JButton btnVoltar;
     private javax.swing.ButtonGroup grupoSexo;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JLabel lblCPF;
     private javax.swing.JLabel lblEmail;
     private javax.swing.JLabel lblNome;
-    private javax.swing.JLabel lblSenha;
     private javax.swing.JLabel lblSexo;
     private javax.swing.JPanel painelCadastrarCliente;
+    private javax.swing.JRadioButton radioSexoFeminino;
+    private javax.swing.JRadioButton radioSexoMasculino;
     private javax.swing.JTextField txtCPF;
-    private javax.swing.JTextField txtEmail1;
+    private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtNome;
-    private javax.swing.JTextField txtSenha;
     // End of variables declaration//GEN-END:variables
 }
