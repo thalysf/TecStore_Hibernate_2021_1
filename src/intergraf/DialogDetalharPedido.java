@@ -1,6 +1,11 @@
 package intergraf;
 
 import gertarefas.GerenciadorInterfaceGrafica;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+import model.ItemPedido;
+import model.Pedido;
+import model.Produto;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -14,12 +19,11 @@ import gertarefas.GerenciadorInterfaceGrafica;
  */
 public class DialogDetalharPedido extends javax.swing.JDialog {
     private GerenciadorInterfaceGrafica gerInterfaceGrafica;
-    /**
-     * Creates new form VisualizarProdutos
-     */
+    private Pedido pedidoSelecionado;
     public DialogDetalharPedido(java.awt.Frame parent, boolean modal, GerenciadorInterfaceGrafica gerInterfaceGrafica) {
         super(parent, modal);
         this.gerInterfaceGrafica = gerInterfaceGrafica;
+        this.pedidoSelecionado = null;
         initComponents();
     }
 
@@ -37,8 +41,14 @@ public class DialogDetalharPedido extends javax.swing.JDialog {
         tableDetalharPedido = new javax.swing.JTable();
         btnVoltar = new javax.swing.JButton();
         lblValorTotal = new javax.swing.JLabel();
+        labelTotalPedido = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                formComponentShown(evt);
+            }
+        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 153, 255)), "Detalhar Pedido", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 18), new java.awt.Color(0, 51, 255))); // NOI18N
 
@@ -76,6 +86,11 @@ public class DialogDetalharPedido extends javax.swing.JDialog {
         lblValorTotal.setForeground(new java.awt.Color(51, 0, 255));
         lblValorTotal.setText("Valor total: ");
 
+        labelTotalPedido.setEditable(false);
+        labelTotalPedido.setBackground(new java.awt.Color(204, 204, 204));
+        labelTotalPedido.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        labelTotalPedido.setForeground(new java.awt.Color(102, 255, 51));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -86,17 +101,25 @@ public class DialogDetalharPedido extends javax.swing.JDialog {
                 .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lblValorTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(81, 81, 81))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(labelTotalPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(37, 37, 37))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(tableProdScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 478, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblValorTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(66, 66, 66))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
+                        .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(66, 66, 66))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(84, 84, 84)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(labelTotalPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblValorTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
@@ -108,9 +131,51 @@ public class DialogDetalharPedido extends javax.swing.JDialog {
         gerInterfaceGrafica.fecharJanela(this);
     }//GEN-LAST:event_btnVoltarActionPerformed
 
+    private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
+        if(pedidoSelecionado != null)
+        {
+           // Resetando tabela
+            ((DefaultTableModel) tableDetalharPedido.getModel()).setRowCount(0);     
+            pedidoSelecionado.getItensPedidos().stream().forEach((p) -> {
+                  inserirItemTabela(p);
+             });
+            labelTotalPedido.setText(String.valueOf(obterValorTotalPedido(pedidoSelecionado.getItensPedidos())));
+        }
+    }//GEN-LAST:event_formComponentShown
+    private void inserirItemTabela(ItemPedido itemPedido)
+    {
+        ((DefaultTableModel) tableDetalharPedido.getModel()).addRow(new Object[4]);
+        int linhaAtual = tableDetalharPedido.getRowCount() - 1;
+        int i = 0;
+        
+        tableDetalharPedido.setValueAt(itemPedido.getIdComposto().getProduto().getNome(), linhaAtual, i++);
+        tableDetalharPedido.setValueAt(itemPedido.getIdComposto().getProduto().getCategoria().getNome(), linhaAtual, i++);
+        tableDetalharPedido.setValueAt(itemPedido.getQuantidade(), linhaAtual, i++);
+        tableDetalharPedido.setValueAt(itemPedido.getQuantidade() * itemPedido.getIdComposto().getProduto().getPreco(), linhaAtual, i++);
+    }
+    
+    private Double obterValorTotalPedido(List<ItemPedido> itens) {
+        Double valorTotalPedido = 0d;
+        for(ItemPedido item: itens)
+        {
+            valorTotalPedido += (item.getIdComposto().getProduto().getPreco() * item.getQuantidade());
+        }
+        return valorTotalPedido;
+    }
+    
+    public Pedido getPedidoSelecionado() {
+        return pedidoSelecionado;
+    }
+
+    public void setPedidoSelecionado(Pedido pedidoSelecionado) {
+        this.pedidoSelecionado = pedidoSelecionado;
+    }
+
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnVoltar;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JTextField labelTotalPedido;
     private javax.swing.JLabel lblValorTotal;
     private javax.swing.JTable tableDetalharPedido;
     private javax.swing.JScrollPane tableProdScroll;

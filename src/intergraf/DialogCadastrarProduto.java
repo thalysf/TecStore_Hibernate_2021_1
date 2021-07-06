@@ -1,9 +1,9 @@
 package intergraf;
 
-import modelo.Produto;
+import model.Produto;
 import gertarefas.GerenciadorInterfaceGrafica;
 import javax.swing.JOptionPane;
-import modelo.Categoria;
+import model.Categoria;
 import org.hibernate.HibernateException;
 
 /*
@@ -155,7 +155,7 @@ public class DialogCadastrarProduto extends javax.swing.JDialog {
                  produtoSelecionado.setNome(txtNome.getText());
                  produtoSelecionado.setPreco(Double.parseDouble(txtPreco.getText()));
                 gerInterfaceGrafica.getGerenciadorDominio().alterar(produtoSelecionado);
-                JOptionPane.showMessageDialog(this, "Produto alterado com sucessoo com sucesso!");
+                JOptionPane.showMessageDialog(this, "Produto "+ produtoSelecionado.getId_produto() +" alterado com sucesso!");
             } catch (HibernateException e ) {
                 JOptionPane.showMessageDialog(this, e);
             }

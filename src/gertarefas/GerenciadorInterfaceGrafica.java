@@ -9,9 +9,10 @@ import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import modelo.Categoria;
-import modelo.Cliente;
-import modelo.Produto;
+import model.Categoria;
+import model.Cliente;
+import model.Pedido;
+import model.Produto;
 import org.hibernate.HibernateException;
 
 
@@ -73,10 +74,7 @@ public class GerenciadorInterfaceGrafica {
     public void abrirDlgCadastrarProduto(){
         abrirJanela(dlgCadastrarProduto);
     }
-    
-    public void abrirDlgDetalharPedido(){
-        abrirJanela(dlgDetalharPedido);
-    }
+  
     public void abrirDlgGerarRelatorio(){
         abrirJanela(dlgGerarRelatorio);
     }
@@ -101,6 +99,15 @@ public class GerenciadorInterfaceGrafica {
         dlgCadastrarProduto.setProdutoSelecionado(produtoSelecionado);
         abrirJanela(dlgCadastrarProduto);
     }
+    public void abrirDlgCadastrarCategoria(Categoria categoriaSelecionada){
+        dlgCadastrarCategoria.setCategoriaSelecionada(categoriaSelecionada);
+        abrirJanela(dlgCadastrarCategoria);
+    }
+    
+    public void abrirDlgCadastrarCliente(Cliente clienteSelecionado){
+        dlgCadastrarCliente.setClienteSelecionado(clienteSelecionado);
+        abrirJanela(dlgCadastrarCliente);
+    }
     
     // Tela de seleção
     public void abrirDlgRealizarPedidoCarregarProduto(Produto produtoSelecionado){
@@ -112,6 +119,11 @@ public class GerenciadorInterfaceGrafica {
         dlgRealizarPedido.setClienteSelecionado(clienteSelecionado);
         dlgRealizarPedido.carregarInfoCliente();
         abrirJanela(dlgRealizarPedido);
+    }
+    
+    public void abrirDlgDetalharPedido(Pedido pedidoSelecionado){
+        dlgDetalharPedido.setPedidoSelecionado(pedidoSelecionado);
+        abrirJanela(dlgDetalharPedido);
     }
     
     // Carregar informações na tela a partir do banco ( carrega combo )

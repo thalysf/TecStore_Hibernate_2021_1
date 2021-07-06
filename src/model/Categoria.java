@@ -1,7 +1,8 @@
-package modelo;
+package model;
 
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.Vector;
 import javax.persistence.*;
 
 @Entity
@@ -68,6 +69,11 @@ public class Categoria implements Serializable{
             return false;
         }
         return true;
+    }
+
+    public Object[] toArray()
+    {
+        return new Object[]{this, nome};
     }
     
 }

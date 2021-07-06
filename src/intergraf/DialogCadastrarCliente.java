@@ -2,7 +2,8 @@ package intergraf;
 
 import gertarefas.GerenciadorInterfaceGrafica;
 import javax.swing.JOptionPane;
-import modelo.Cliente;
+import model.Cliente;
+import modelo.util.FuncoesUteis;
 import modelo.util.SexoEnum;
 import org.hibernate.HibernateException;
 
@@ -11,19 +12,22 @@ import org.hibernate.HibernateException;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author thaly
  */
 public class DialogCadastrarCliente extends javax.swing.JDialog {
+
     private GerenciadorInterfaceGrafica gerInterfaceGrafica;
+    private Cliente clienteSelecionado;
+
     /**
      * Creates new form DialogCadastrarAdm
      */
     public DialogCadastrarCliente(java.awt.Frame parent, boolean modal, GerenciadorInterfaceGrafica gerInterfaceGrafica) {
         super(parent, modal);
         this.gerInterfaceGrafica = gerInterfaceGrafica;
+        this.clienteSelecionado = null;
         initComponents();
     }
 
@@ -51,6 +55,11 @@ public class DialogCadastrarCliente extends javax.swing.JDialog {
         lblCPF = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                formComponentShown(evt);
+            }
+        });
 
         painelCadastrarCliente.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 153, 255)), "Cadastrar Cliente", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 3, 18), new java.awt.Color(51, 0, 255))); // NOI18N
 
@@ -198,25 +207,60 @@ public class DialogCadastrarCliente extends javax.swing.JDialog {
     }//GEN-LAST:event_txtCPFActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        Cliente cliente = new Cliente(0, txtNome.getText(), txtEmail.getText(), null, txtCPF.getText());
-        if(radioSexoFeminino.isSelected())
-        {
-            cliente.setSexo(SexoEnum.F);     
+
+        if (!FuncoesUteis.isCPF(txtCPF.getText())) {
+            JOptionPane.showMessageDialog(this, "Por favor informe um CPF Válido!");
+        } else {
+            if (clienteSelecionado != null) {
+                clienteSelecionado.setNome(txtNome.getText());
+                clienteSelecionado.setCPF(txtCPF.getText());
+                clienteSelecionado.setEmail(txtEmail.getText());
+
+                if (radioSexoFeminino.isSelected()) {
+                    clienteSelecionado.setSexo(SexoEnum.F);
+                } else {
+                    clienteSelecionado.setSexo(SexoEnum.M);
+                }
+                try {
+                    gerInterfaceGrafica.getGerenciadorDominio().alterar(clienteSelecionado);
+                    JOptionPane.showMessageDialog(this, "Cliente " + clienteSelecionado.getId_cliente() + " alterado com sucesso!");
+                } catch (HibernateException e) {
+                    JOptionPane.showMessageDialog(this, e);
+                }
+            } else {
+                Cliente cliente = new Cliente(0, txtNome.getText(), txtEmail.getText(), null, txtCPF.getText());
+                if (radioSexoFeminino.isSelected()) {
+                    cliente.setSexo(SexoEnum.F);
+                } else {
+                    cliente.setSexo(SexoEnum.M);
+                }
+                try {
+                    gerInterfaceGrafica.getGerenciadorDominio().inserir(cliente);
+                    JOptionPane.showMessageDialog(this, "Cliente " + cliente.getId_cliente() + " inserido com sucesso!");
+                } catch (HibernateException e) {
+                    JOptionPane.showMessageDialog(this, e);
+                }
+            }
         }
-        else
-        {
-            cliente.setSexo(SexoEnum.M);
-        }
-        System.out.println(cliente.toString());
-        try {
-            gerInterfaceGrafica.getGerenciadorDominio().inserir(cliente);
-            JOptionPane.showMessageDialog(this, "Cliente " + cliente.getId_usuario() + " inserido com sucesso!");
-        } catch (HibernateException e) {
-           JOptionPane.showMessageDialog(this, e);
-        } 
+
     }//GEN-LAST:event_btnSalvarActionPerformed
 
- 
+    private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
+        if (clienteSelecionado != null) {
+            this.txtNome.setText(clienteSelecionado.getNome());
+            this.txtCPF.setText(clienteSelecionado.getCPF());
+            this.txtEmail.setText(clienteSelecionado.getEmail());
+        }
+    }//GEN-LAST:event_formComponentShown
+
+    public Cliente getClienteSelecionado() {
+        return clienteSelecionado;
+    }
+
+    public void setClienteSelecionado(Cliente clienteSelecionado) {
+        this.clienteSelecionado = clienteSelecionado;
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSalvar;

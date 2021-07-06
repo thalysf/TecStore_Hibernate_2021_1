@@ -1,4 +1,4 @@
-package modelo;
+package model;
 
 import java.util.Date;
 import modelo.util.PagamentoEnum;
@@ -6,6 +6,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
+import modelo.util.FuncoesUteis;
 
 @Entity
 public class Pedido implements Serializable {
@@ -15,8 +16,8 @@ public class Pedido implements Serializable {
     private int id_pedido;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "id_usuario", nullable = false)
-    private Cliente usuario;
+    @JoinColumn(name = "id_cliente", nullable = false)
+    private Cliente cliente;
 
     @Column(length = 1, nullable = false)
     @Enumerated(EnumType.STRING)
@@ -26,9 +27,6 @@ public class Pedido implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date dataPedido;
 
-    @Column(nullable = false)
-    private Double valorTotalPedido;
-
     @OneToMany (mappedBy = "idComposto.pedido", 
                 fetch = FetchType.LAZY,
                 cascade = CascadeType.ALL )
@@ -37,12 +35,11 @@ public class Pedido implements Serializable {
     public Pedido() {
     }
 
-    public Pedido(int id_pedido, Cliente usuario, PagamentoEnum tipoPagamento, Date dataPedido, Double valorTotalPedido) {
+    public Pedido(int id_pedido, Cliente cliente, PagamentoEnum tipoPagamento, Date dataPedido) {
         this.id_pedido = id_pedido;
-        this.usuario = usuario;
+        this.cliente = cliente;
         this.tipoPagamento = tipoPagamento;
         this.dataPedido = dataPedido;
-        this.valorTotalPedido = valorTotalPedido;
         this.itensPedidos = new ArrayList();
     }
 
@@ -54,12 +51,12 @@ public class Pedido implements Serializable {
         this.id_pedido = id_pedido;
     }
 
-    public Cliente getUsuario() {
-        return usuario;
+    public Cliente getCliente() {
+        return cliente;
     }
 
-    public void setUsuario(Cliente usuario) {
-        this.usuario = usuario;
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
 
     public PagamentoEnum getTipoPagamento() {
@@ -78,19 +75,21 @@ public class Pedido implements Serializable {
         this.dataPedido = dataPedido;
     }
 
-    public Double getValorTotalPedido() {
-        return valorTotalPedido;
-    }
-
-    public void setValorTotalPedido(Double valorTotalPedido) {
-        this.valorTotalPedido = valorTotalPedido;
-    }
-
     public List<ItemPedido> getItensPedidos() {
         return itensPedidos;
     }
 
     public void setItensPedidos(List<ItemPedido> itensPedidos) {
         this.itensPedidos = itensPedidos;
+    }
+
+    @Override
+    public String toString() {
+        return String.valueOf(id_pedido);
+    }
+    
+    public Object[] toArray()
+    {
+        return new Object[]{this, cliente.getNome(), FuncoesUteis.dateToStr(dataPedido), tipoPagamento.getTipoPagamento()};
     }
 }

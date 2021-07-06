@@ -2,8 +2,10 @@ package intergraf;
 
 import gertarefas.GerenciadorInterfaceGrafica;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import modelo.Categoria;
+import model.Categoria;
+import org.hibernate.HibernateException;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -17,12 +19,14 @@ import modelo.Categoria;
  */
 public class DialogVisualizarCategorias extends javax.swing.JDialog {
     private GerenciadorInterfaceGrafica gerInterfaceGrafica;
+    private Categoria categoriaSelecionada;
     /**
      * Creates new form VisualizarProdutos
      */
     public DialogVisualizarCategorias(java.awt.Frame parent, boolean modal, GerenciadorInterfaceGrafica gerInterfaceGrafica) {
         super(parent, modal);
         this.gerInterfaceGrafica = gerInterfaceGrafica;
+        this.categoriaSelecionada = null;
         initComponents();
     }
 
@@ -42,7 +46,7 @@ public class DialogVisualizarCategorias extends javax.swing.JDialog {
         btnExcluir = new javax.swing.JButton();
         btnVoltar = new javax.swing.JButton();
         lblPesqNome = new javax.swing.JLabel();
-        txtFiltroNome = new javax.swing.JTextField();
+        txtNomeFiltro = new javax.swing.JTextField();
         btnPesquisar = new javax.swing.JButton();
         btnLimpar = new javax.swing.JButton();
 
@@ -60,10 +64,7 @@ public class DialogVisualizarCategorias extends javax.swing.JDialog {
         tableCategoria.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         tableCategoria.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null},
-                {null},
-                {null},
-                {null}
+
             },
             new String [] {
                 "Nome"
@@ -80,8 +81,18 @@ public class DialogVisualizarCategorias extends javax.swing.JDialog {
         tableProdScroll.setViewportView(tableCategoria);
 
         btnEditar.setText("Editar");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
 
         btnExcluir.setText("Excluir");
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
 
         btnVoltar.setText("Voltar");
         btnVoltar.addActionListener(new java.awt.event.ActionListener() {
@@ -93,13 +104,23 @@ public class DialogVisualizarCategorias extends javax.swing.JDialog {
         lblPesqNome.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         lblPesqNome.setText("Nome:");
 
-        txtFiltroNome.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        txtNomeFiltro.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
         btnPesquisar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btnPesquisar.setText("Pesquisar");
+        btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPesquisarActionPerformed(evt);
+            }
+        });
 
         btnLimpar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btnLimpar.setText("Limpar");
+        btnLimpar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimparActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -112,7 +133,7 @@ public class DialogVisualizarCategorias extends javax.swing.JDialog {
                         .addGap(53, 53, 53)
                         .addComponent(lblPesqNome)
                         .addGap(18, 18, 18)
-                        .addComponent(txtFiltroNome, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtNomeFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnPesquisar)
                         .addGap(18, 18, 18)
@@ -120,9 +141,9 @@ public class DialogVisualizarCategorias extends javax.swing.JDialog {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(222, 222, 222)
                         .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(113, 113, 113)
+                        .addGap(102, 102, 102)
                         .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(73, 73, 73)
+                        .addGap(84, 84, 84)
                         .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(243, Short.MAX_VALUE))
         );
@@ -132,7 +153,7 @@ public class DialogVisualizarCategorias extends javax.swing.JDialog {
                 .addGap(25, 25, 25)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblPesqNome)
-                    .addComponent(txtFiltroNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNomeFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnPesquisar)
                     .addComponent(btnLimpar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
@@ -155,18 +176,76 @@ public class DialogVisualizarCategorias extends javax.swing.JDialog {
     }//GEN-LAST:event_btnVoltarActionPerformed
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
-       List<Categoria> categorias = gerInterfaceGrafica.getGerenciadorDominio().listar(Categoria.class);
-        ((DefaultTableModel) tableCategoria.getModel()).addRow(new Object[1]);
-        int i = 0;
-       for(Categoria cat : categorias)
-       {
-            tableCategoria.setValueAt(cat, i++, 0);
-       }
-      
-        
-       
+       pesquisar();
     }//GEN-LAST:event_formComponentShown
 
+    private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
+        pesquisar();
+    }//GEN-LAST:event_btnPesquisarActionPerformed
+
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        int[] linhasSelecionadas = tableCategoria.getSelectedRows();
+         if(linhasSelecionadas.length == 0)
+         {
+             JOptionPane.showMessageDialog(this, "Selecione ao menos uma categoria para excluir!");
+         }
+         else
+         {
+             for(int i = 0; i < linhasSelecionadas.length; i++)
+         {
+             try {
+                 gerInterfaceGrafica.getGerenciadorDominio().excluir((Categoria) tableCategoria.getValueAt(linhasSelecionadas[i], 0));
+             } catch (HibernateException e) {
+                 System.out.println(e.getMessage());
+            }
+         }
+            pesquisar();
+            JOptionPane.showMessageDialog(this, "Operação realizada com sucesso!");
+         }
+    }//GEN-LAST:event_btnExcluirActionPerformed
+
+    private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
+        txtNomeFiltro.setText("");
+        pesquisar();
+    }//GEN-LAST:event_btnLimparActionPerformed
+
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+       int linhaSelecionada = tableCategoria.getSelectedRow();
+         if(linhaSelecionada < 0)
+         {
+             JOptionPane.showMessageDialog(this, "Selecione uma categoria para editar!");
+         }
+         else
+         {
+             categoriaSelecionada = (Categoria) tableCategoria.getValueAt(linhaSelecionada, 0);
+             setVisible(false);
+             gerInterfaceGrafica.abrirDlgCadastrarCategoria(categoriaSelecionada);
+             gerInterfaceGrafica.fecharJanela(this);
+         }
+    }//GEN-LAST:event_btnEditarActionPerformed
+private void pesquisar()
+    {
+        int op;
+        if(!txtNomeFiltro.getText().isEmpty())
+        {
+            op = 1;
+        }
+        else
+        {
+            op = 0;
+        }
+        try {
+            // Resetando tabela
+            ((DefaultTableModel) tableCategoria.getModel()).setRowCount(0);
+            // Busca com filtros
+            List<Categoria> categorias = gerInterfaceGrafica.getGerenciadorDominio().pesquisarCategoria(txtNomeFiltro.getText(), op);
+            categorias.stream().forEach((c) -> {
+                  ((DefaultTableModel) tableCategoria.getModel()).addRow(c.toArray());
+             });
+        } catch (HibernateException e) {
+            System.out.println(e.getMessage());
+        } 
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnExcluir;
@@ -177,6 +256,6 @@ public class DialogVisualizarCategorias extends javax.swing.JDialog {
     private javax.swing.JLabel lblPesqNome;
     private javax.swing.JTable tableCategoria;
     private javax.swing.JScrollPane tableProdScroll;
-    private javax.swing.JTextField txtFiltroNome;
+    private javax.swing.JTextField txtNomeFiltro;
     // End of variables declaration//GEN-END:variables
 }

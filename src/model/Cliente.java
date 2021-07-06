@@ -1,4 +1,4 @@
-package modelo;
+package model;
 import modelo.util.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -10,7 +10,7 @@ import javax.persistence.*;
 public class Cliente implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id_usuario;
+    private int id_cliente;
     
     @Column(nullable = false)
     private String nome;
@@ -26,27 +26,27 @@ public class Cliente implements Serializable{
     @Column(nullable = false, length = 14)
     private String CPF;
     
-    @OneToMany ( mappedBy = "usuario", fetch = FetchType.LAZY )
+    @OneToMany ( mappedBy = "cliente", fetch = FetchType.LAZY )
     private List<Pedido> pedidos = new ArrayList();
 
     public Cliente() {
     }
 
     
-    public Cliente(int id_usuario, String nome, String email, SexoEnum sexo, String CPF) {
-        this.id_usuario = id_usuario;
+    public Cliente(int id_cliente, String nome, String email, SexoEnum sexo, String CPF) {
+        this.id_cliente = id_cliente;
         this.nome = nome;
         this.email = email;
         this.sexo = sexo;
         this.CPF = CPF;
     }
 
-    public int getId_usuario() {
-        return id_usuario;
+    public int getId_cliente() {
+        return id_cliente;
     }
 
-    public void setId_usuario(int id_usuario) {
-        this.id_usuario = id_usuario;
+    public void setId_cliente(int id_cliente) {
+        this.id_cliente = id_cliente;
     }
 
     public String getNome() {

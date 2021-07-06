@@ -11,7 +11,7 @@ public enum PagamentoEnum {
     {
         this.label = label;
     }
-
+    
     public String getTipoPagamento() {
         return label;
     }

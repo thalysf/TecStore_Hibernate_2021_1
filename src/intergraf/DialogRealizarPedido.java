@@ -1,13 +1,14 @@
 package intergraf;
 
 
-import modelo.Produto;
+import model.Produto;
 import gertarefas.GerenciadorInterfaceGrafica;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
-import modelo.Cliente;
+import javax.swing.table.DefaultTableModel;
+import model.Cliente;
 import modelo.util.PagamentoEnum;
 
 /*
@@ -122,6 +123,11 @@ public class DialogRealizarPedido extends javax.swing.JDialog {
         tableProdScroll.setViewportView(tableCarrinhoPedido);
 
         btnRemoverItem.setText("Remover item");
+        btnRemoverItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemoverItemActionPerformed(evt);
+            }
+        });
 
         btnFinalizarPedido.setText("Finalizar Pedido");
         btnFinalizarPedido.addActionListener(new java.awt.event.ActionListener() {
@@ -141,6 +147,11 @@ public class DialogRealizarPedido extends javax.swing.JDialog {
         });
 
         btnLimparCarrinho.setText("Limpar Carrinho");
+        btnLimparCarrinho.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimparCarrinhoActionPerformed(evt);
+            }
+        });
 
         btnVoltar.setText("Voltar");
         btnVoltar.addActionListener(new java.awt.event.ActionListener() {
@@ -152,6 +163,7 @@ public class DialogRealizarPedido extends javax.swing.JDialog {
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel4.setText("VALOR TOTAL DO PEDIDO:");
 
+        txtValorTotalPedido.setEditable(false);
         txtValorTotalPedido.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         txtValorTotalPedido.setForeground(new java.awt.Color(0, 204, 102));
         txtValorTotalPedido.setToolTipText("");
@@ -225,6 +237,7 @@ public class DialogRealizarPedido extends javax.swing.JDialog {
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Categoria:");
 
+        txtNomeProd.setEditable(false);
         txtNomeProd.setBackground(new java.awt.Color(204, 204, 204));
         txtNomeProd.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
         txtNomeProd.setForeground(new java.awt.Color(255, 255, 0));
@@ -234,6 +247,7 @@ public class DialogRealizarPedido extends javax.swing.JDialog {
             }
         });
 
+        txtCategoriaProd.setEditable(false);
         txtCategoriaProd.setBackground(new java.awt.Color(204, 204, 204));
         txtCategoriaProd.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
         txtCategoriaProd.setForeground(new java.awt.Color(255, 255, 0));
@@ -243,6 +257,7 @@ public class DialogRealizarPedido extends javax.swing.JDialog {
             }
         });
 
+        txtPrecoProd.setEditable(false);
         txtPrecoProd.setBackground(new java.awt.Color(204, 204, 204));
         txtPrecoProd.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
         txtPrecoProd.setForeground(new java.awt.Color(255, 255, 0));
@@ -300,6 +315,7 @@ public class DialogRealizarPedido extends javax.swing.JDialog {
         lblAddProdCarrinho1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         lblAddProdCarrinho1.setText("Adicione produtos ao carrinho:");
 
+        txtCliente.setEditable(false);
         txtCliente.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         txtCliente.setForeground(new java.awt.Color(0, 51, 255));
 
@@ -423,7 +439,7 @@ public class DialogRealizarPedido extends javax.swing.JDialog {
         {
             int id_pedido = gerInterfaceGrafica
                                               .getGerenciadorDominio()
-                                              .inserirPedido(clienteSelecionado, (PagamentoEnum) selectTipoPagamento.getSelectedItem(),tableCarrinhoPedido, obterValorTotalPedido());
+                                              .inserirPedido(clienteSelecionado, (PagamentoEnum) selectTipoPagamento.getSelectedItem(),tableCarrinhoPedido);
             JOptionPane.showMessageDialog(this, "Pedido " + id_pedido + " inserido com sucesso!");
             gerInterfaceGrafica.fecharJanela(this);
         }
@@ -467,6 +483,20 @@ public class DialogRealizarPedido extends javax.swing.JDialog {
         list.add(PagamentoEnum.B);
         selectTipoPagamento.setModel(new DefaultComboBoxModel(list.toArray()));
     }//GEN-LAST:event_formComponentShown
+
+    private void btnLimparCarrinhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparCarrinhoActionPerformed
+        ((DefaultTableModel) tableCarrinhoPedido.getModel()).setRowCount(0);     
+        txtValorTotalPedido.setText(String.valueOf(obterValorTotalPedido()));
+    }//GEN-LAST:event_btnLimparCarrinhoActionPerformed
+
+    private void btnRemoverItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverItemActionPerformed
+        int linhaSelecionada = tableCarrinhoPedido.getSelectedRow();
+        if(linhaSelecionada != -1)
+        {
+            ((DefaultTableModel) tableCarrinhoPedido.getModel()).removeRow(linhaSelecionada);
+            txtValorTotalPedido.setText(String.valueOf(obterValorTotalPedido()));
+        }
+    }//GEN-LAST:event_btnRemoverItemActionPerformed
     public void carregarInfoProd() {
        if(this.prodSelecionado != null)
        {

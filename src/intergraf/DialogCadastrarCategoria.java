@@ -6,7 +6,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
-import modelo.Categoria;
+import model.Categoria;
 import org.hibernate.HibernateException;
 
 /*
@@ -21,6 +21,7 @@ import org.hibernate.HibernateException;
 public class DialogCadastrarCategoria extends javax.swing.JDialog {
 
     private GerenciadorInterfaceGrafica gerInterfaceGrafica;
+    private Categoria categoriaSelecionada;
 
     /**
      * Creates new form DialogCadastrarProduto
@@ -28,6 +29,7 @@ public class DialogCadastrarCategoria extends javax.swing.JDialog {
     public DialogCadastrarCategoria(java.awt.Frame parent, boolean modal, GerenciadorInterfaceGrafica gerInterfaceGrafica) {
         super(parent, modal);
         this.gerInterfaceGrafica = gerInterfaceGrafica;
+        this.categoriaSelecionada = null;
         initComponents();
     }
 
@@ -47,6 +49,11 @@ public class DialogCadastrarCategoria extends javax.swing.JDialog {
         btnSalvarCategoria = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                formComponentShown(evt);
+            }
+        });
 
         painelCadastrarCategoria.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 204, 255)), "Cadastrar Categoria", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 18), new java.awt.Color(0, 0, 204))); // NOI18N
 
@@ -108,17 +115,43 @@ public class DialogCadastrarCategoria extends javax.swing.JDialog {
 
     private void btnSalvarCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarCategoriaActionPerformed
         Categoria cat = new Categoria(0, txtNome.getText());
-        try {
-            gerInterfaceGrafica.getGerenciadorDominio().inserir(cat);
-            JOptionPane.showMessageDialog(this, "Categoria " + cat.getId_categoria() + " inserida com sucesso!");
-        } catch (HibernateException e) {
-           JOptionPane.showMessageDialog(this, e);
-        } 
+        if (categoriaSelecionada != null) {
+            categoriaSelecionada.setNome(txtNome.getText());
+            try {
+                gerInterfaceGrafica.getGerenciadorDominio().alterar(categoriaSelecionada);
+                JOptionPane.showMessageDialog(this, "Categoria " + categoriaSelecionada.getId_categoria() + " atualizada com sucesso!");
+            } catch (HibernateException e) {
+                JOptionPane.showMessageDialog(this, e);
+            }
+        } else {
+            try {
+                gerInterfaceGrafica.getGerenciadorDominio().inserir(cat);
+                JOptionPane.showMessageDialog(this, "Categoria " + cat.getId_categoria() + " inserida com sucesso!");
+            } catch (HibernateException e) {
+                JOptionPane.showMessageDialog(this, e);
+            }
+        }
+
     }//GEN-LAST:event_btnSalvarCategoriaActionPerformed
 
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
         gerInterfaceGrafica.fecharJanela(this);
     }//GEN-LAST:event_btnVoltarActionPerformed
+
+    private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
+        if(categoriaSelecionada != null)
+        {
+        txtNome.setText(categoriaSelecionada.getNome());
+        }
+    }//GEN-LAST:event_formComponentShown
+
+    public Categoria getCategoriaSelecionada() {
+        return categoriaSelecionada;
+    }
+
+    public void setCategoriaSelecionada(Categoria categoriaSelecionada) {
+        this.categoriaSelecionada = categoriaSelecionada;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSalvarCategoria;

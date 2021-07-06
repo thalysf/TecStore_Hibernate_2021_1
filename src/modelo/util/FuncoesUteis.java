@@ -5,6 +5,17 @@
  */
 package modelo.util;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author thaly
@@ -76,5 +87,49 @@ public class FuncoesUteis {
         }
         
         
+    }
+    // Validando se a String representa uma data real
+    public static boolean isValidDate(String strDate) {
+        String dateFormat = "dd/MM/uuuu";
+
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter
+                .ofPattern(dateFormat)
+                .withResolverStyle(ResolverStyle.STRICT);
+        try {
+            LocalDate date = LocalDate.parse(strDate, dateTimeFormatter);
+            return true;
+        } catch (DateTimeParseException e) {
+            return false;
+        }
+    }
+    // Converte e valida uma DATA
+    public static Date strToDate(String txtData){
+        if(txtData == null || txtData.isEmpty()) return null;
+        DateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+        formato.setLenient(false);
+        try {
+            return formato.parse(txtData);
+        } catch (ParseException ex) {
+            Logger.getLogger(FuncoesUteis.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    // Converte e valida uma DATA
+    public static String dateToStr(Date data){
+        if(data == null) return null;
+        DateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+        formato.setLenient(false);
+        return formato.format(data);
+
+    }
+    
+    // Converte e valida uma DATA para inserir no BANCO
+    public static String dateToStrBanco(Date data){
+        if(data == null) return null;
+        DateFormat formato = new SimpleDateFormat("yyyy-mm-dd");
+        formato.setLenient(false);
+        return formato.format(data);
+
     }
 }

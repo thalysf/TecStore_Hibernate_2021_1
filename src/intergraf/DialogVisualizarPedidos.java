@@ -1,25 +1,39 @@
 package intergraf;
 
 import gertarefas.GerenciadorInterfaceGrafica;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import model.ItemPedido;
+import model.Pedido;
+import model.Produto;
+import modelo.util.FuncoesUteis;
+import modelo.util.PagamentoEnum;
+import org.hibernate.HibernateException;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author thaly
  */
 public class DialogVisualizarPedidos extends javax.swing.JDialog {
+
     private GerenciadorInterfaceGrafica gerInterfaceGrafica;
+    private Pedido pedidoSelecionado;
+
     /**
      * Creates new form VisualizarProdutos
      */
     public DialogVisualizarPedidos(java.awt.Frame parent, boolean modal, GerenciadorInterfaceGrafica gerInterfaceGrafica) {
         super(parent, modal);
         this.gerInterfaceGrafica = gerInterfaceGrafica;
+        this.pedidoSelecionado = null;
         initComponents();
     }
 
@@ -32,25 +46,37 @@ public class DialogVisualizarPedidos extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel3 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         tableProdScroll = new javax.swing.JScrollPane();
         tablePedidos = new javax.swing.JTable();
         btnDetalhar = new javax.swing.JButton();
         btnVoltar = new javax.swing.JButton();
-        lblPesqNome = new javax.swing.JLabel();
         btnPesquisar = new javax.swing.JButton();
-        lblPesqNome1 = new javax.swing.JLabel();
+        lblCod = new javax.swing.JLabel();
         comboFiltroTipoPagamento = new javax.swing.JComboBox<>();
         lblPesqNome2 = new javax.swing.JLabel();
-        txtFiltroCodigo = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         txtFiltroDataInicio = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         txtFiltroDataFim = new javax.swing.JTextField();
         btnLimpar = new javax.swing.JButton();
+        lblPesqNome3 = new javax.swing.JLabel();
+        lblCliente = new javax.swing.JLabel();
+        txFiltroCliente = new javax.swing.JTextField();
+        spinnerFiltroCodigo = new javax.swing.JSpinner();
+        btnPesquisarTodos = new javax.swing.JButton();
+        checkBoxFiltroTipoPagamento = new javax.swing.JCheckBox();
+
+        jLabel3.setText("jLabel3");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                formComponentShown(evt);
+            }
+        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 153, 255)), "Visualizar Pedidos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 18), new java.awt.Color(0, 51, 255))); // NOI18N
 
@@ -58,17 +84,17 @@ public class DialogVisualizarPedidos extends javax.swing.JDialog {
         tablePedidos.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         tablePedidos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Cod Pedido", "Data Pedido", "Valor Total Pedido", "Tipo de Pagamento"
+                "Código", "Cliente", "Data", "Tipo Pagamento", "Total"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, true, true, true
+                false, false, false, true, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -78,6 +104,11 @@ public class DialogVisualizarPedidos extends javax.swing.JDialog {
         tableProdScroll.setViewportView(tablePedidos);
 
         btnDetalhar.setText("Detalhar Pedido");
+        btnDetalhar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDetalharActionPerformed(evt);
+            }
+        });
 
         btnVoltar.setText("Voltar");
         btnVoltar.addActionListener(new java.awt.event.ActionListener() {
@@ -86,22 +117,21 @@ public class DialogVisualizarPedidos extends javax.swing.JDialog {
             }
         });
 
-        lblPesqNome.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        lblPesqNome.setText("Código:");
-
         btnPesquisar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btnPesquisar.setText("Pesquisar");
+        btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPesquisarActionPerformed(evt);
+            }
+        });
 
-        lblPesqNome1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        lblPesqNome1.setText("Tipo Pagamento:");
+        lblCod.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lblCod.setText("Código:");
 
         comboFiltroTipoPagamento.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        comboFiltroTipoPagamento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cartão", "Dinheiro", "Cheque" }));
 
         lblPesqNome2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         lblPesqNome2.setText("Período:");
-
-        txtFiltroCodigo.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
         jPanel2.setBackground(new java.awt.Color(204, 204, 204));
 
@@ -144,12 +174,39 @@ public class DialogVisualizarPedidos extends javax.swing.JDialog {
 
         btnLimpar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btnLimpar.setText("Limpar");
+        btnLimpar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimparActionPerformed(evt);
+            }
+        });
+
+        lblPesqNome3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lblPesqNome3.setText("Tipo Pagamento:");
+
+        lblCliente.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lblCliente.setText("Cliente:");
+
+        txFiltroCliente.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+
+        spinnerFiltroCodigo.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        spinnerFiltroCodigo.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
+
+        btnPesquisarTodos.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        btnPesquisarTodos.setText("Pesquisar Todos");
+        btnPesquisarTodos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPesquisarTodosActionPerformed(evt);
+            }
+        });
+
+        checkBoxFiltroTipoPagamento.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        checkBoxFiltroTipoPagamento.setText("Habilitar Filtro por Tipo de Pagamento");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tableProdScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 1051, Short.MAX_VALUE)
+            .addComponent(tableProdScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 1070, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(215, 215, 215)
                 .addComponent(btnDetalhar, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -157,53 +214,69 @@ public class DialogVisualizarPedidos extends javax.swing.JDialog {
                 .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(205, 205, 205))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(32, 32, 32)
+                .addGap(46, 46, 46)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(checkBoxFiltroTipoPagamento)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(lblCod)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(spinnerFiltroCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(lblPesqNome3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(comboFiltroTipoPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(45, 45, 45)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblPesqNome1)
-                            .addComponent(lblPesqNome))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtFiltroCodigo)
-                            .addComponent(comboFiltroTipoPagamento, 0, 168, Short.MAX_VALUE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(lblPesqNome2)
-                        .addGap(18, 18, 18)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(3, 3, 3)
+                                .addComponent(lblPesqNome2)
+                                .addGap(26, 26, 26))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(lblCliente)
+                                .addGap(18, 18, 18)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txFiltroCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(52, 52, 52)
                         .addComponent(btnPesquisar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnLimpar)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addGap(26, 26, 26)
+                        .addComponent(btnPesquisarTodos)
+                        .addGap(39, 39, 39)
+                        .addComponent(btnLimpar)))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblPesqNome)
-                    .addComponent(txtFiltroCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblPesqNome1)
-                    .addComponent(comboFiltroTipoPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnPesquisar)
-                            .addComponent(btnLimpar)))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGap(25, 25, 25)
-                            .addComponent(lblPesqNome2))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
-                .addComponent(tableProdScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 454, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(20, 20, 20)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(33, 33, 33)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(comboFiltroTipoPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblPesqNome3))
+                            .addComponent(lblPesqNome2))))
+                .addGap(39, 39, 39)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblCod)
+                    .addComponent(lblCliente)
+                    .addComponent(txFiltroCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(spinnerFiltroCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnPesquisar)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnLimpar)
+                        .addComponent(btnPesquisarTodos)
+                        .addComponent(checkBoxFiltroTipoPagamento)))
+                .addGap(57, 57, 57)
+                .addComponent(tableProdScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnDetalhar, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -220,22 +293,145 @@ public class DialogVisualizarPedidos extends javax.swing.JDialog {
         gerInterfaceGrafica.fecharJanela(this);
     }//GEN-LAST:event_btnVoltarActionPerformed
 
+    private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
+        pesquisarTodos();
+        try {
+            List<PagamentoEnum> pagEnums = new ArrayList<>();
+            pagEnums.add(PagamentoEnum.C);
+            pagEnums.add(PagamentoEnum.D);
+            pagEnums.add(PagamentoEnum.B);
+            comboFiltroTipoPagamento.setModel(new DefaultComboBoxModel(pagEnums.toArray()));
+        } catch (HibernateException e) {
+            JOptionPane.showMessageDialog(this, e);
+        }
+    }//GEN-LAST:event_formComponentShown
+
+    private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
+        pesquisar();
+    }//GEN-LAST:event_btnPesquisarActionPerformed
+
+    private void btnPesquisarTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarTodosActionPerformed
+        pesquisarTodos();
+    }//GEN-LAST:event_btnPesquisarTodosActionPerformed
+
+    private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
+        txtFiltroDataFim.setText("");
+        txtFiltroDataInicio.setText("");
+        txFiltroCliente.setText("");
+        spinnerFiltroCodigo.setValue(0);
+        pesquisarTodos();
+    }//GEN-LAST:event_btnLimparActionPerformed
+
+    private void btnDetalharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDetalharActionPerformed
+        int linhaSelecionada = tablePedidos.getSelectedRow();
+        if (linhaSelecionada < 0) {
+            JOptionPane.showMessageDialog(this, "Selecione um pedido!");
+        } else {
+            pedidoSelecionado = (Pedido) tablePedidos.getValueAt(linhaSelecionada, 0);
+            setVisible(false);
+            gerInterfaceGrafica.abrirDlgDetalharPedido(pedidoSelecionado);
+            gerInterfaceGrafica.fecharJanela(this);
+        }
+    }//GEN-LAST:event_btnDetalharActionPerformed
+    private void pesquisar() {
+        String dataInicio = txtFiltroDataInicio.getText();
+        String dataFim = txtFiltroDataFim.getText();
+        Integer codigo = (Integer) spinnerFiltroCodigo.getValue();
+        PagamentoEnum pagEnum = null;
+        String cliente = null;
+        if ((!FuncoesUteis.isValidDate(dataInicio)
+                && !FuncoesUteis.isValidDate(dataFim))
+                && (!dataInicio.isEmpty() && !dataFim.isEmpty())) {
+            JOptionPane.showMessageDialog(this, "Preencha as data no formato dd/MM/yyyy!");
+        } else {
+            if (checkBoxFiltroTipoPagamento.isSelected()) {
+                pagEnum = (PagamentoEnum) comboFiltroTipoPagamento.getSelectedItem();
+            }
+            if (!txFiltroCliente.getText().isEmpty()) {
+                cliente = txFiltroCliente.getText();
+            }
+            try {
+                // Resetando tabela
+                ((DefaultTableModel) tablePedidos.getModel()).setRowCount(0);
+                // Busca com filtros
+                List<Pedido> pedidos = gerInterfaceGrafica.getGerenciadorDominio()
+                        .pesquisarPedidos(pagEnum,
+                                dataInicio,
+                                dataFim,
+                                codigo,
+                                cliente
+                        );
+                pedidos.stream().forEach((p) -> {
+                    inserePedidoTabela(p);
+                });
+            } catch (HibernateException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+
+    }
+
+    private void inserePedidoTabela(Pedido pedido)
+    {
+        ((DefaultTableModel) tablePedidos.getModel()).addRow(new Object[5]);
+        int linhaAtual = tablePedidos.getRowCount() - 1;
+        int i = 0;
+        
+        tablePedidos.setValueAt(pedido, linhaAtual, i++);
+        tablePedidos.setValueAt(pedido.getCliente().getNome(), linhaAtual, i++);
+        tablePedidos.setValueAt(FuncoesUteis.dateToStr(pedido.getDataPedido()), linhaAtual, i++);
+        tablePedidos.setValueAt(pedido.getTipoPagamento(), linhaAtual, i++);
+        tablePedidos.setValueAt(obterValorTotalPedido(pedido.getItensPedidos()), linhaAtual, i++);
+    }
+    private Double obterValorTotalPedido(List<ItemPedido> itens) {
+        Double valorTotalPedido = 0d;
+        for(ItemPedido item: itens)
+        {
+            valorTotalPedido += (item.getIdComposto().getProduto().getPreco() * item.getQuantidade());
+        }
+        return valorTotalPedido;
+    }
+
+    private void pesquisarTodos() {
+        try {
+            // Resetando tabela
+            ((DefaultTableModel) tablePedidos.getModel()).setRowCount(0);
+            // Busca com filtros
+            List<Pedido> pedidos = gerInterfaceGrafica.getGerenciadorDominio()
+                    .pesquisarPedidos(null,
+                            null,
+                            null,
+                            null,
+                            null
+                    );
+            pedidos.stream().forEach((p) -> {
+                inserePedidoTabela(p);
+            });
+        } catch (HibernateException e) {
+            System.out.println(e.getMessage());
+        }
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDetalhar;
     private javax.swing.JButton btnLimpar;
     private javax.swing.JButton btnPesquisar;
+    private javax.swing.JButton btnPesquisarTodos;
     private javax.swing.JButton btnVoltar;
+    private javax.swing.JCheckBox checkBoxFiltroTipoPagamento;
     private javax.swing.JComboBox<String> comboFiltroTipoPagamento;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JLabel lblPesqNome;
-    private javax.swing.JLabel lblPesqNome1;
+    private javax.swing.JLabel lblCliente;
+    private javax.swing.JLabel lblCod;
     private javax.swing.JLabel lblPesqNome2;
+    private javax.swing.JLabel lblPesqNome3;
+    private javax.swing.JSpinner spinnerFiltroCodigo;
     private javax.swing.JTable tablePedidos;
     private javax.swing.JScrollPane tableProdScroll;
-    private javax.swing.JTextField txtFiltroCodigo;
+    private javax.swing.JTextField txFiltroCliente;
     private javax.swing.JTextField txtFiltroDataFim;
     private javax.swing.JTextField txtFiltroDataInicio;
     // End of variables declaration//GEN-END:variables

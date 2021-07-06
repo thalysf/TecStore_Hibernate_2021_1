@@ -4,8 +4,7 @@ import gertarefas.GerenciadorInterfaceGrafica;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import modelo.Cliente;
-import modelo.Produto;
+import model.Cliente;
 import org.hibernate.HibernateException;
 
 /*
@@ -42,7 +41,7 @@ public class DialogVisualizarClientes extends javax.swing.JDialog {
 
         jPanel1 = new javax.swing.JPanel();
         tableProdScroll = new javax.swing.JScrollPane();
-        tableProd = new javax.swing.JTable();
+        tableCliente = new javax.swing.JTable();
         btnEditar = new javax.swing.JButton();
         btnExcluir = new javax.swing.JButton();
         btnVoltar = new javax.swing.JButton();
@@ -62,9 +61,9 @@ public class DialogVisualizarClientes extends javax.swing.JDialog {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 153, 255)), "Visualizar Cliente", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 18), new java.awt.Color(0, 51, 255))); // NOI18N
 
-        tableProd.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(102, 102, 102), 1, true));
-        tableProd.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        tableProd.setModel(new javax.swing.table.DefaultTableModel(
+        tableCliente.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(102, 102, 102), 1, true));
+        tableCliente.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        tableCliente.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -80,7 +79,7 @@ public class DialogVisualizarClientes extends javax.swing.JDialog {
                 return canEdit [columnIndex];
             }
         });
-        tableProdScroll.setViewportView(tableProd);
+        tableProdScroll.setViewportView(tableCliente);
 
         btnEditar.setText("Editar");
         btnEditar.addActionListener(new java.awt.event.ActionListener() {
@@ -150,12 +149,11 @@ public class DialogVisualizarClientes extends javax.swing.JDialog {
                 .addContainerGap(58, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblNomeFiltro)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(txtNomeFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(33, 33, 33))
+                    .addComponent(txtNomeFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnPesquisar)
-                        .addComponent(btnLimpar))))
+                        .addComponent(btnLimpar)))
+                .addGap(31, 31, 31))
         );
 
         btnSelecionar.setText("Selecionar");
@@ -221,14 +219,22 @@ public class DialogVisualizarClientes extends javax.swing.JDialog {
     
     private void pesquisar()
     {
+         int op;
+        if(!txtNomeFiltro.getText().isEmpty())
+        {
+            op = 1;
+        }
+        else
+        {
+            op = 0;
+        }
         try {
             // Resetando tabela
-            ((DefaultTableModel) tableProd.getModel()).setRowCount(0);
+            ((DefaultTableModel) tableCliente.getModel()).setRowCount(0);
             // Busca com filtros
-            List<Cliente> clientes = gerInterfaceGrafica.getGerenciadorDominio().listar(Cliente.class);
-           // List<Produto> produtos = gerInterfaceGrafica.getGerenciadorDominio().pesquisarProduto(txtNomeFiltro.getText());
-            clientes.stream().forEach((p) -> {
-                  ((DefaultTableModel) tableProd.getModel()).addRow(p.toArray());
+            List<Cliente> clientes = gerInterfaceGrafica.getGerenciadorDominio().pesquisarCliente(txtNomeFiltro.getText(), op);
+            clientes.stream().forEach((c) -> {
+                  ((DefaultTableModel) tableCliente.getModel()).addRow(c.toArray());
              });
         } catch (HibernateException e) {
             System.out.println(e.getMessage());
@@ -239,17 +245,17 @@ public class DialogVisualizarClientes extends javax.swing.JDialog {
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-         int[] linhasSelecionadas = tableProd.getSelectedRows();
+         int[] linhasSelecionadas = tableCliente.getSelectedRows();
          if(linhasSelecionadas.length == 0)
          {
-             JOptionPane.showMessageDialog(this, "Selecione ao menos um produto para excluir!");
+             JOptionPane.showMessageDialog(this, "Selecione ao menos um cliente para excluir!");
          }
          else
          {
              for(int id: linhasSelecionadas)
          {
              try {
-                 gerInterfaceGrafica.getGerenciadorDominio().excluir((Produto) tableProd.getValueAt(id, 0));
+                 gerInterfaceGrafica.getGerenciadorDominio().excluir((Cliente) tableCliente.getValueAt(id, 0));
              } catch (HibernateException e) {
                  System.out.println(e.getMessage());
             }
@@ -267,29 +273,29 @@ public class DialogVisualizarClientes extends javax.swing.JDialog {
     }//GEN-LAST:event_btnLimparActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        int linhaSelecionada = tableProd.getSelectedRow();
+        int linhaSelecionada = tableCliente.getSelectedRow();
          if(linhaSelecionada < 0)
          {
-             JOptionPane.showMessageDialog(this, "Selecione um produto para editar!");
+             JOptionPane.showMessageDialog(this, "Selecione uma categoria para editar!");
          }
          else
          {
-             clienteSelecionado = (Cliente) tableProd.getValueAt(linhaSelecionada, 0);
+             clienteSelecionado = (Cliente) tableCliente.getValueAt(linhaSelecionada, 0);
              setVisible(false);
-             // gerInterfaceGrafica.abrirDlgCadastrarCliente(clienteSelecionado); ...implementar
+             gerInterfaceGrafica.abrirDlgCadastrarCliente(clienteSelecionado);
              gerInterfaceGrafica.fecharJanela(this);
          }
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnSelecionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelecionarActionPerformed
-        int linhaSelecionada = tableProd.getSelectedRow();
+        int linhaSelecionada = tableCliente.getSelectedRow();
          if(linhaSelecionada < 0)
          {
              JOptionPane.showMessageDialog(this, "Selecione um cliente!");
          }
          else
          {
-             clienteSelecionado = (Cliente) tableProd.getValueAt(linhaSelecionada, 0);
+             clienteSelecionado = (Cliente) tableCliente.getValueAt(linhaSelecionada, 0);
              setVisible(false);
              gerInterfaceGrafica.abrirDlgRealizarPedidoCarregarCliente(clienteSelecionado);
              gerInterfaceGrafica.fecharJanela(this);
@@ -310,7 +316,7 @@ public class DialogVisualizarClientes extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lblNomeFiltro;
-    private javax.swing.JTable tableProd;
+    private javax.swing.JTable tableCliente;
     private javax.swing.JScrollPane tableProdScroll;
     private javax.swing.JTextField txtNomeFiltro;
     // End of variables declaration//GEN-END:variables

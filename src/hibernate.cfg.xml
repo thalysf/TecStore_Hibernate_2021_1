@@ -50,12 +50,11 @@ Contributor(s):
     <property name="hibernate.format_sql">true</property>
     <property name="hibernate.query.factory_class">org.hibernate.hql.internal.classic.ClassicQueryTranslatorFactory</property>
     <property name="hibernate.hbm2ddl.auto">update</property>
-<!--    <property name="hibernate.hbm2ddl.auto">create</property>-->
-    <mapping class="modelo.Categoria"/>
-    <mapping class="modelo.Pedido"/>
-    <mapping class="modelo.Produto"/>
-    <mapping class="modelo.Cliente"/>
-    <mapping class="modelo.ItemPedido"/>
-    <mapping class="modelo.ItemPedidoPK"/>
+    <mapping class="model.Categoria"/>
+    <mapping class="model.Pedido"/>
+    <mapping class="model.Produto"/>
+    <mapping class="model.Cliente"/>
+    <mapping class="model.ItemPedido"/>
+    <mapping class="model.ItemPedidoPK"/>
   </session-factory>
 </hibernate-configuration>

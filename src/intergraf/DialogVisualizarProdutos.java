@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import modelo.Produto;
+import model.Produto;
 import org.hibernate.HibernateException;
 
 /*
@@ -247,19 +247,19 @@ public class DialogVisualizarProdutos extends javax.swing.JDialog {
         int op;
         if(!txtNomeFiltro.getText().isEmpty() && txtCategoriaFiltro.getText().isEmpty())
         {
-            op = 2;
+            op = 1;
         }
         else if(!txtCategoriaFiltro.getText().isEmpty() && txtNomeFiltro.getText().isEmpty())
         {
-            op = 3;
+            op = 2;
         }
         else if(!txtNomeFiltro.getText().isEmpty() && !txtCategoriaFiltro.getText().isEmpty())
         {
-            op = 4;
+            op = 3;
         }
         else
         {
-            op = 1;
+            op = 0;
         }
         try {
             // Resetando tabela
@@ -285,10 +285,10 @@ public class DialogVisualizarProdutos extends javax.swing.JDialog {
          }
          else
          {
-             for(int id: linhasSelecionadas)
+             for(int i = 0; i < linhasSelecionadas.length; i++)
          {
              try {
-                 gerInterfaceGrafica.getGerenciadorDominio().excluir((Produto) tableProd.getValueAt(id, 0));
+                 gerInterfaceGrafica.getGerenciadorDominio().excluir((Produto) tableProd.getValueAt(linhasSelecionadas[i], 0));
              } catch (HibernateException e) {
                  System.out.println(e.getMessage());
             }
